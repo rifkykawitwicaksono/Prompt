@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ADS PROMPT GENERATOR — UNLOCKED</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f4f3fb;--bg2:#e9e6fb;--card:rgba(255,255,255,.82);--tx:#16152a;--mu:#6b6a85;--bd:rgba(90,80,160,.16);--code:#f0eefc;--ok:#12a150;--g:linear-gradient(135deg,#7c5cff,#ff4d8d)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0a14;--bg2:#17142e;--card:rgba(30,27,54,.72);--tx:#f2f1fb;--mu:#9c9ab8;--bd:rgba(160,150,255,.18);--code:#0f0d1e;--ok:#4ade80}}
+:root[data-theme="dark"]{--bg:#0b0a14;--bg2:#17142e;--card:rgba(30,27,54,.72);--tx:#f2f1fb;--mu:#9c9ab8;--bd:rgba(160,150,255,.18);--code:#0f0d1e;--ok:#4ade80}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;min-height:100%;color:var(--tx);font:15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(900px 500px at 10% -10%,color-mix(in srgb,#7c5cff 28%,transparent),transparent),radial-gradient(700px 500px at 100% 0%,color-mix(in srgb,#ff4d8d 20%,transparent),transparent),var(--bg)}
+.w{max-width:860px;margin:0 auto;padding:18px 16px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.logo{display:flex;align-items:center;gap:10px}.logo i{width:38px;height:38px;border-radius:12px;background:var(--g);display:grid;place-items:center;font-style:normal;font-size:19px;box-shadow:0 6px 20px rgba(124,92,255,.4)}
+h1{font-size:19px;letter-spacing:.06em;margin:0;font-weight:800}.tag{font-size:11px;color:var(--mu);margin:0}
+.lang{display:flex;background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:3px}
+.lang button{border:0;background:transparent;color:var(--mu);padding:5px 12px;border-radius:999px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.lang .on{background:var(--g);color:#fff}
+.pg{display:flex;gap:6px;margin-bottom:14px}.pg div{flex:1;font-size:11px;text-align:center;color:var(--mu)}
+.pg b{display:block;height:5px;border-radius:9px;background:var(--bd);margin-bottom:5px}.pg .on b{background:var(--g)}.pg .on{color:var(--tx);font-weight:700}.pg .dn b{background:var(--ok)}.pg .dn{color:var(--ok)}
+.panel{background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:20px;padding:20px;box-shadow:0 10px 40px rgba(20,10,60,.12)}
+h2{font-size:18px;margin:0 0 4px}h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);margin:18px 0 8px}
+.hint{color:var(--mu);font-size:13px;margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid var(--bd);background:var(--code);color:var(--tx);padding:7px 13px;border-radius:999px;font:inherit;font-size:13px;cursor:pointer;transition:.15s}
+.chip:hover{border-color:#7c5cff}.chip.on{background:var(--g);color:#fff;border-color:transparent;font-weight:600}
+.fl{margin-bottom:12px}.fl>span{display:block;font-size:12px;font-weight:700;color:var(--mu);margin-bottom:6px}
+input[type=text],input[type=number]{width:100%;margin-top:8px;padding:10px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--code);color:var(--tx);font:inherit;font-size:14px}
+input[type=file]{width:100%;padding:12px;border:1.5px dashed var(--bd);border-radius:12px;background:var(--code);color:var(--mu);font:inherit;font-size:13px}
+select{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:12px;background:var(--code);color:var(--tx);font:inherit;font-size:14px;cursor:pointer}
+.btn{background:var(--g);color:#fff;border:0;border-radius:12px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;margin-top:14px;box-shadow:0 6px 18px rgba(124,92,255,.35)}
+.btn:disabled{opacity:.5}.btn.s{background:transparent;color:#7c5cff;border:1px solid #7c5cff;padding:6px 14px;margin:0;font-size:12px;box-shadow:none}.btn.s.ok{color:var(--ok);border-color:var(--ok)}
+.btn.g2{background:transparent;color:var(--mu);border:1px solid var(--bd);box-shadow:none}
+.opt{border:1px solid var(--bd);background:var(--code);border-radius:16px;padding:14px 16px;margin:10px 0;cursor:pointer;transition:.15s}
+.opt:hover{border-color:#7c5cff;transform:translateY(-1px)}.opt b{display:block;font-size:15px}.opt span{color:var(--mu);font-size:13px;line-height:1.5}
+.blk{margin-top:16px}.bh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+pre{margin:0;background:var(--code);border:1px solid var(--bd);border-radius:14px;padding:14px;white-space:pre-wrap;word-break:break-word;font:12.5px/1.55 ui-monospace,Menlo,monospace;user-select:text}
+.lock{color:var(--ok);font-weight:700;margin-top:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.th{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.th img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--bd)}
+.note{font-size:13px;color:var(--mu);margin-top:8px}
+.foot{text-align:center;margin-top:22px;font-size:12px;color:var(--mu)}.foot b{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.05em}
+.free{font-size:10px;vertical-align:middle;background:var(--g);color:#fff;padding:2px 8px;border-radius:999px;letter-spacing:.08em;margin-left:6px}
+.up{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--g);color:#fff;text-decoration:none;font-weight:800;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(124,92,255,.35)}
+.banner{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border:1px dashed #7c5cff;border-radius:14px;padding:10px 14px;margin-bottom:14px;font-size:13px}
+.pb{font-style:normal;font-size:10px;font-weight:800;color:#fff;background:var(--g);padding:2px 7px;border-radius:999px;letter-spacing:.04em;margin-left:4px;white-space:nowrap}
+.lkf{cursor:pointer}.lkf .fake{padding:11px 12px;border:1px dashed var(--bd);border-radius:12px;background:var(--code);color:var(--mu);font-size:14px;opacity:.8}.lkf:hover .fake{border-color:#7c5cff}
+.opt.locked{opacity:.65;border-style:dashed}.chip.lockc{opacity:.65;border-style:dashed}
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(10,8,25,.62)}.modal.on{display:flex}
+.mbox{background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:22px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:90%;overflow:auto}
+.mbox h2{margin:0 0 6px}.mbox ul{padding-left:18px;margin:10px 0 14px;color:var(--mu);font-size:13px}.mbox li{margin:3px 0}.mbox .up{display:flex;width:100%;padding:13px;border-radius:12px}
+</style></head><body><div class="w">
+<div class="top"><div class="logo"><i>🎬</i><div><h1>ADS PROMPT GENERATOR <span class="free">UNLOCKED</span></h1><p class="tag" id="tag"></p></div></div><div class="lang" id="lang"></div></div>
+<div class="banner" id="bn"></div><div class="pg" id="pg"></div><div class="panel" id="panel"></div>
+<div class="foot">Generator by <b>BBU CHANNEL</b></div></div>
+<div class="modal" id="pro" onclick="if(event.target===this)closePro()"></div>
+<script>
+const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
+const t=(e,i)=>S.lang=='id'?i:e;
+const R={},C=[];const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const v=(o,k)=>(S[o][k]||'').trim();const J=a=>a.filter(Boolean).join(', ');
+const stageOf=s=>({c:1,p:2,l:3,k:4,d:5,v:6})[s[0]];
+function go(s){S.hist.push(S.st);S.st=s;S.msg='';render();scrollTo(0,0)}
+function back(){S.st=S.hist.pop();render()}
+const nav=(label,to,extra='')=>`<div class="row">${label?`<button class="btn" onclick="${extra}go('${to}')">${label}</button>`:''}${S.hist.length?`<button class="btn g2" onclick="back()">← ${t('Back','Kembali')}</button>`:''}</div>`;
+
+/* ---------- LOCAL UNLOCKED CONFIG ---------- */
+const PRO_URL='';
+const FREE={scenes:6,concepts:10,nl:[],customOK:['c.name','c.eth','c.under','c.height','c.pers','c.expr','c.acc','p.finish','p.mat','p.feat','p.type','p.shape','p.colors','p.brand','l.location'],lockedFields:[]};
+const badge=()=>'';
+function proHTML(){return ''}
+function showPro(){return}
+function closePro(){return}
+const lockedField=label=>'';
+const lockOpt=c=>opt(`${c.i}. ${esc(c.title)}`,`<span>${t('Create this concept.','Buat konsep ini.')}</span>`,`S.concept=${c.i};go('d0')`);
+function durField(){const cur=String(S.d.dur);return `<div class="fl"><span>${t('Duration (seconds) — up to 6 scenes','Durasi (detik) — hingga 6 adegan')}</span><div class="chips">${['10','20','30','40','50','60'].map(x=>`<button class="chip ${cur==x?'on':''}" onclick="S.d.dur=${x};render(true)">${x}</button>`).join('')}</div></div>`}
+function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select></div>`}
+function nlChange(val){S.d.nl=val;render(true)}
+const upsell=()=>'';
+
+/* ---------- OPTION CHIPS ---------- */
+function chips(o,k,label,opts,multi){
+ if(FREE.lockedFields.includes(o+'.'+k))return lockedField(label);
+ if(multi)return chipsOld(o,k,label,opts,multi);
+ const key=o+'.'+k;R[key]=opts;const cur=S[o][k]||'';const vals=opts.map(x=>x.split('~')[0]);
+ const cust=S.cu[key]||(cur&&!vals.includes(cur));
+ const os=opts.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${!cust&&cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('');
+ return `<div class="fl"><span>${label}</span><select onchange="selChange('${key}',this.value)"><option value="">${t('— Your choice —','— Pilihan kreator —')}</option>${os}<option value="__c" ${cust?'selected':''}>${t('Custom…','Lainnya…')}</option></select>${cust?`<input type="text" data-o="${o}" data-k="${k}" value="${esc(cur)}" placeholder="${t('Type your own…','Tulis sendiri…')}">`:''}</div>`}
+function selChange(key,val){const[o,k]=key.split('.');if(val=='__c'){S.cu[key]=true;S[o][k]=''}else{S.cu[key]=false;S[o][k]=val}render(true)}
+function chipsOld(o,k,label,opts,multi){
+ const key=o+'.'+k;R[key]=opts;const cur=S[o][k]||'';
+ const vals=opts.map(x=>x.split('~')[0]);const sel=multi?cur.split(', ').filter(Boolean):[cur];
+ const cust=!multi&&(S.cu[key]||(cur&&!vals.includes(cur)));
+ const ch=opts.map((x,i)=>{const[val,idl]=x.split('~');return `<button class="chip ${!cust&&sel.includes(val)?'on':''}" onclick="pickChip('${key}',${i},${multi?1:0})">${esc(S.lang=='id'&&idl?idl:val)}</button>`}).join('');
+ const cb=multi?'':`<button class="chip ${cust?'on':''}" onclick="pickCustom('${key}')">${t('Custom…','Lainnya…')}</button>`;
+ return `<div class="fl"><span>${label}</span><div class="chips">${ch}${cb}</div>${cust?`<input type="text" data-o="${o}" data-k="${k}" value="${esc(cur)}" placeholder="${t('Type your own…','Tulis sendiri…')}">`:''}</div>`;
+}
+function pickChip(key,i,multi){const[o,k]=key.split('.');const val=R[key][i].split('~')[0];S.cu[key]=false;
+ if(multi){let a=(S[o][k]||'').split(', ').filter(Boolean);a=a.includes(val)?a.filter(x=>x!=val):[...a,val].slice(-3);S[o][k]=a.join(', ')}else S[o][k]=S[o][k]==val?'':val;render(true)}
+function pickCustom(key){const[o,k]=key.split('.');S.cu[key]=true;S[o][k]='';render(true)}
+const txt=(o,k,label,ph)=>`<div class="fl"><span>${label}</span><input type="text" data-o="${o}" data-k="${k}" value="${esc(S[o][k]||'')}" placeholder="${ph}"></div>`;
+document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value});
+document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){S.files[d.up]=[...S.files[d.up],...e.target.files].slice(0,d.up=='c'?10:4);render(true)}});
+
+/* ---------- COPY (works in iframes) ---------- */
+const blk=(title,text)=>{C.push(text);return `<div class="blk"><div class="bh"><span>${title}</span><button class="btn s" onclick="cp(${C.length-1},this)">${t('Copy','Salin')}</button></div><pre>${esc(text)}</pre></div>`};
+function cp(i,b){const x=C[i];let ok=false;
+ try{const a=document.createElement('textarea');a.value=x;a.setAttribute('readonly','');a.style.cssText='position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';document.body.appendChild(a);a.focus();a.select();a.setSelectionRange(0,x.length);ok=document.execCommand('copy');a.remove()}catch(_){}
+ const good=()=>{b.textContent=t('Copied ✓','Tersalin ✓');b.classList.add('ok');setTimeout(()=>{b.textContent=t('Copy','Salin');b.classList.remove('ok')},1500)};
+ const manual=()=>{const pre=b.closest('.blk').querySelector('pre');const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent=t('Press Ctrl/Cmd+C','Tekan Ctrl/Cmd+C')};
+ if(ok)good();else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(good,manual);else manual()}
+const opt=(a,b,fn)=>`<div class="opt" onclick="${fn}"><b>${a}</b><span>${b}</span></div>`;
+
+/* ---------- CLAUDE CONNECTOR: published runtime OR direct Anthropic API (works when this file is uploaded to Claude as an artifact) ---------- */
+function toB64(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const m=1024,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.85).split(',')[1])};im.onerror=()=>rej(new Error('image'));im.src=u})}
+async function directAsk(prompt,o={}){
+ const content=[];
+ for(const f of (o.images||[]))content.push({type:'image',source:{type:'base64',media_type:'image/jpeg',data:await toB64(f)}});
+ content.push({type:'text',text:prompt});
+ const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content}]})});
+ const d=await res.json();if(!res.ok||d.error)throw new Error((d.error&&d.error.message)||('HTTP '+res.status));
+ return{text:(d.content||[]).map(i=>i.type==='text'?i.text:'').join('')}}
+async function getSample(){
+ let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}
+ const f=async(prompt,o={})=>{if(rt){try{return await rt(prompt,o)}catch(e){}}return directAsk(prompt,o)};
+ f.limits=async()=>{if(rt){try{return await rt.limits()}catch(e){}}return{images:true}};
+ return f}
+
+/* ---------- UPLOAD + ANALYZE ---------- */
+function uploader(k,label){const f=S.files[k];
+ return `<div class="fl"><span>${label}</span><input type="file" accept="image/*" multiple data-up="${k}"></div><div class="th">${f.map(x=>`<img src="${URL.createObjectURL(x)}">`).join('')}</div>
+ ${f.length?`<button class="btn" id="an" onclick="analyze('${k}')">🔍 ${k=='c'?t('Analyze character','Analisa karakter'):t('Analyze product','Analisa produk')}</button>`:''}<div class="note" id="am">${esc(S.msg)}</div>`}
+async function analyze(k){const m=document.getElementById('am'),b=document.getElementById('an');
+ try{const sample=await getSample();
+  if(!sample){m.textContent=t('Auto-analysis unavailable here. Please pick the options below manually.','Analisa otomatis tidak tersedia di sini. Pilih opsi di bawah secara manual.');return}
+  const lim=await sample.limits();if(!lim.images){m.textContent=t('Image analysis unavailable. Pick options manually.','Analisa gambar tidak tersedia. Pilih opsi manual.');return}
+  b.disabled=true;m.textContent=t('Analyzing images…','Menganalisa gambar…');
+  const keys=k=='c'?'gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)':'type, shape, colors, finish (Matte/Glossy/Metallic), mat (materials), brand (logo and branding placement), feat (buttons, controls, details)';
+  const r=await sample(`Analyze the attached ${k=='c'?'person (avatar / model reference)':'product'} image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`,{images:S.files[k],cache:false});
+  Object.assign(S[k],JSON.parse((r.text.match(/\{[\s\S]*\}/)||['{}'])[0]));S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisa selesai — cek dan ubah opsi di bawah bila perlu.');render(true);
+ }catch(e){m.textContent=t('Analysis failed. Please pick options manually.','Analisa gagal. Pilih opsi secara manual.');if(b)b.disabled=false}}
+
+/* ---------- OPTION LISTS (value~Indonesian label) ---------- */
+const O={
+ name:['Ameela','Maya','Sofia','Zoe','Nina','Jordan','Liam','Aiden'],gender:['Female~Perempuan','Male~Laki-laki','Non-binary~Non-biner'],age:['18–24','25–34','35–44','45–54','55+'],
+ eth:['White~Kulit putih','Black~Kulit hitam','East Asian~Asia Timur','South Asian~Asia Selatan','Latina/Hispanic~Latina/Hispanik','Middle Eastern~Timur Tengah','Southeast Asian~Asia Tenggara','Mixed~Campuran'],
+ skin:['Porcelain~Porselen','Fair~Cerah','Light~Terang','Medium~Sedang','Tan~Tan','Brown~Cokelat','Deep Dark~Gelap pekat'],under:['Cool~Dingin','Neutral~Netral','Warm~Hangat','Olive~Zaitun'],
+ eyes:['Brown~Cokelat','Dark brown~Cokelat tua','Hazel','Green~Hijau','Blue~Biru','Gray~Abu-abu'],hairc:['Black~Hitam','Dark brown~Cokelat tua','Light brown~Cokelat muda','Blonde~Pirang','Auburn','Red~Merah','Gray~Abu-abu'],
+ hair:['Long wavy~Panjang bergelombang','Messy bun~Cepol berantakan','Bob','Braids~Kepang','Shoulder-length straight~Lurus sebahu','Curly~Keriting','Short crop~Pendek','Ponytail~Kuncir kuda'],
+ body:['Slim~Langsing','Average~Rata-rata','Athletic~Atletis','Curvy~Berlekuk','Plus-size'],height:['Short~Pendek','Average height~Sedang','Tall~Tinggi'],
+ outfit:['Casual tee and jeans~Kaos & jeans santai','Oversized hoodie and leggings~Hoodie oversize & legging','Streetwear','Athleisure set~Set athleisure','Business casual','Cozy loungewear~Baju rumah nyaman'],
+ acc:['None~Tanpa aksesoris','Small gold hoops~Anting emas kecil','Silver necklace~Kalung perak','Watch~Jam tangan','Glasses~Kacamata','Baseball cap~Topi baseball'],
+ pers:['Relatable','Friendly~Ramah','Confident~Percaya diri','Warm~Hangat','Energetic~Energik','Calm~Tenang','Playful~Ceria','Authentic~Autentik'],expr:['Natural~Natural','Friendly~Ramah','Soft smile~Senyum tipis','Confident~Percaya diri','Happy~Bahagia','Serious~Serius'],
+ cat:['Beauty~Kecantikan','Fitness~Kebugaran','Tech~Teknologi','Food~Makanan & Minuman','Home~Rumah Tangga','Fashion'],
+ ptype:['Tumbler / bottle~Tumbler / botol','Skincare bottle~Botol skincare','Gadget / earbuds~Gadget / earbuds','Snack / food package~Kemasan makanan','Home appliance~Alat rumah tangga','Clothing / bag~Pakaian / tas','Accessory~Aksesoris'],
+ shape:['Tall and slim~Tinggi ramping','Compact~Kompak','Round~Bulat','Rectangular~Persegi panjang','Cylindrical~Silinder','Flat~Pipih'],
+ colors:['Pastel pink~Pink pastel','White~Putih','Black~Hitam','Navy~Biru navy','Sage green~Hijau sage','Silver~Perak','Beige~Krem'],finish:['Matte~Doff','Glossy~Mengkilap','Metallic~Metalik'],
+ mat:['Stainless steel','Plastic~Plastik','Glass~Kaca','Silicone~Silikon','Fabric~Kain','Aluminum~Aluminium','Wood~Kayu'],
+ brand:['Logo centered on the front~Logo di tengah depan','Small logo near the top~Logo kecil di atas','Logo on the side~Logo di samping','Text wordmark on the front~Tulisan merek di depan'],
+ feat:['Flip lid~Tutup flip','Pump dispenser~Pompa dispenser','Touch buttons~Tombol sentuh','Zipper~Resleting','Carry handle~Gagang','Straw lid~Tutup sedotan','No special controls~Tanpa kontrol khusus'],
+ prob:["I never find something that actually works for me~Tidak pernah ketemu yang cocok","my daily routine takes way too long~Rutinitas harian terlalu lama","everything I tried before fell apart so fast~Produk sebelumnya cepat rusak","I'm tired of spending money on stuff that doesn't last~Capek buang uang untuk barang tidak awet","it's always such a hassle~Selalu merepotkan"],
+ benefit:["it just works and it's so easy to use~Praktis dan mudah dipakai","it feels high quality for the price~Kualitas bagus untuk harganya","it saves me so much time every day~Hemat waktu tiap hari","it looks great and I get compliments~Tampilannya bagus, sering dipuji","it lasts all day without any problems~Awet seharian tanpa masalah"],
+ cta:["link's in my bio if you wanna try it~Link di bio kalau mau coba","they're having a sale rn, link in my bio~Lagi diskon, link di bio","go check it out, I left the link below~Cek aja, link di bawah","use my code for a little discount~Pakai kode saya untuk diskon","grab one before they sell out~Ambil sebelum kehabisan"],
+ dur:['10','20','30','40','50','60'],nl:['English','Indonesian~Indonesia','Spanish~Spanyol','Portuguese~Portugis','French~Prancis','German~Jerman','Japanese~Jepang','Korean~Korea','Arabic~Arab','Thai~Thailand','Hindi']};
+const NEG='NEGATIVE PROMPT: ';
+const cn=()=>v('c','name')||'The creator',pn=()=>v('p','name')||'the product';
+const cDesc=()=>J([`a ${J([v('c','age')&&v('c','age')+' years old',v('c','gender').toLowerCase(),v('c','eth')])} creator named ${cn()}`.replace('a  creator','a creator'),v('c','skin')&&`${v('c','skin')} skin`+(v('c','under')?` with ${v('c','under').toLowerCase()} undertone`:''),v('c','eyes')&&`${v('c','eyes')} eyes`,(v('c','hairc')||v('c','hair'))&&`${v('c','hairc')} hair, ${v('c','hair')}`.replace(/, $/,''),v('c','body')&&`${v('c','body').toLowerCase()} build`,v('c','height')&&`${v('c','height').toLowerCase()}`,v('c','outfit')&&`wearing ${v('c','outfit').toLowerCase()}`,v('c','acc')&&v('c','acc')!='None'&&`accessories: ${v('c','acc').toLowerCase()}`,v('c','feat')&&`distinguishing features: ${v('c','feat')}`,v('c','pers')&&`personality feel: ${v('c','pers')}`,v('c','expr')&&`${v('c','expr').toLowerCase()} expression`]);
+const pDesc=()=>J([v('p','type'),v('p','shape'),v('p','colors'),v('p','finish')&&`${v('p','finish').toLowerCase()} finish`,v('p','mat')&&`materials: ${v('p','mat')}`,v('p','brand')&&`branding: ${v('p','brand')}`,v('p','feat')]);
+const cForm=full=>`${chips('c','name',t('Character name','Nama karakter'),O.name)}${chips('c','gender',t('Gender','Gender'),O.gender)}${chips('c','age',t('Age range','Rentang usia'),O.age)}${full?chips('c','eth',t('Ethnicity / appearance','Etnis / penampilan'),O.eth):''}${chips('c','skin',t('Skin tone','Warna kulit'),O.skin)}${full?chips('c','under',t('Undertone','Undertone'),O.under):''}${chips('c','eyes',t('Eye color','Warna mata'),O.eyes)}${chips('c','hairc',t('Hair color','Warna rambut'),O.hairc)}${chips('c','hair',t('Hairstyle','Gaya rambut'),O.hair)}${chips('c','body',t('Body type','Tipe tubuh'),O.body)}${full?chips('c','height',t('Height / build','Tinggi / postur'),O.height):''}${chips('c','outfit',t('Outfit style','Gaya outfit'),O.outfit)}${chips('c','acc',t('Accessories','Aksesoris'),O.acc)}${full?chips('c','pers',t('Personality (max 3)','Kepribadian (maks 3)'),O.pers,1)+chips('c','expr',t('Expression','Ekspresi'),O.expr):txt('c','feat',t('Distinguishing features','Ciri khas'),t('e.g. freckles, small mole','mis. bintik, tahi lalat kecil'))}`;
+const pForm=()=>`${txt('p','name',t('Product name (type it)','Nama produk (ketik)'),'blu tumbler')}${chips('p','cat',t('Product category (used for location suggestions)','Kategori produk (untuk saran lokasi)'),O.cat)}${chips('p','type',t('Product type','Tipe produk'),O.ptype)}${chips('p','shape',t('Shape & proportions','Bentuk & proporsi'),O.shape)}${chips('p','colors',t('Color','Warna'),O.colors)}${chips('p','finish',t('Finish','Finishing'),O.finish)}${chips('p','mat',t('Material','Material'),O.mat)}${chips('p','brand',t('Logo / branding','Logo / branding'),O.brand)}${chips('p','feat',t('Key feature','Fitur utama'),O.feat)}`;
+
+/* ---------- LOCATIONS ---------- */
+const LOCS=[
+ {n:'Bedroom',id:'Kamar tidur',c:'beauty fashion tech home',w:'personal, relaxed vlog space',wi:'ruang personal yang santai untuk vlog',d:'unmade-bed corner with throw blanket, wooden nightstand with lamp, window with sheer curtains, clothes on a chair',p:'warm beige, soft white, wood',l:'soft diffused window daylight',t:'late morning'},
+ {n:'Kitchen',id:'Dapur',c:'food fitness home',w:'everyday routine with a handy counter for props',wi:'rutinitas harian dengan meja untuk menaruh produk',d:'quartz counter, fridge with magnets, fruit bowl, a mug, window over the sink',p:'cream, light wood, stainless steel',l:'bright natural daylight',t:'morning'},
+ {n:'Bathroom',id:'Kamar mandi',c:'beauty fitness',w:'mirror and sink make daily routines believable',wi:'cermin dan wastafel bikin rutinitas terasa nyata',d:'framed mirror, sink with toiletries, folded towel, small shelf, tiled wall',p:'white, soft grey, pale green',l:'window light plus warm overhead bulb',t:'morning'},
+ {n:'Car',id:'Mobil',c:'tech food fashion fitness',w:'classic parked-car selfie that feels spontaneous',wi:'selfie klasik di mobil yang terasa spontan',d:'driver seat view, steering wheel, dashboard, cup holder, daylight through the windshield',p:'neutral grey, black',l:'natural daylight through windows',t:'midday'},
+ {n:'Gym',id:'Gym',c:'fitness food',w:'authentic post-workout setting',wi:'suasana pasca-olahraga yang autentik',d:'bench, mirror wall, dumbbell rack in background, gym bag on floor',p:'charcoal, black, accent color',l:'overhead lighting plus window light',t:'early evening'},
+ {n:'Home office',id:'Ruang kerja',c:'tech home',w:'a desk setup people relate to',wi:'meja kerja yang relatable',d:'desk with laptop, notebook, plant, bookshelf, desk lamp',p:'warm neutral, wood, soft green',l:'window light plus desk lamp',t:'afternoon'},
+ {n:'Living room',id:'Ruang tamu',c:'home fashion food tech beauty',w:'cozy lived-in space with natural sitting spots',wi:'ruang nyaman dengan spot duduk natural',d:'couch with cushions, coffee table, floor plant, bookshelf, throw blanket',p:'warm grey, cream, wood',l:'soft daylight from a large window',t:'afternoon'},
+ {n:'Coffee shop',id:'Kafe',c:'food tech fashion',w:'casual everyday-outing vibe',wi:'suasana nongkrong santai',d:'small wooden table, window seat, ceramic cup, menu board, plants (empty of people)',p:'brown, cream, black',l:'window daylight plus warm pendant lights',t:'morning'},
+ {n:'Park',id:'Taman',c:'fitness fashion food',w:'fresh outdoor, on-the-go feeling',wi:'suasana outdoor yang segar',d:'wooden bench, tree-lined path, grass, backpack on the bench',p:'greens, sky blue, earthy brown',l:'natural open daylight',t:'late afternoon'}];
+const sug=()=>LOCS.map((l,i)=>({...l,s:l.c.split(' ').includes((S.p.cat||'').toLowerCase())?0:1,i})).sort((a,b)=>a.s-b.s||a.i-b.i).slice(0,5);
+function pickLoc(i){if(i<0){go('lC');return}S.loc=sug()[i];go('lS')}
+const lo=()=>S.loc?S.loc.n.toLowerCase():'home';
+
+/* ---------- CONCEPTS ---------- */
+const FMT=[['Talking-head testimonial','Testimoni talking-head',(p,r)=>`Okay so I've been using ${p} for two weeks and I need to talk about it.`,'a calm sit-down chat with one clear demo','selfie handheld'],
+['Problem → Solution','Masalah → Solusi',(p,r)=>`Stop scrolling if ${r}.`,'shows the problem, then the fix in use','selfie handheld'],
+['Unboxing','Unboxing',(p,r)=>`My ${p} just showed up and I'm opening it live.`,'opens the package and pulls out the product','propped phone, then close-up'],
+['Things I wish I knew','Hal yang saya wish tahu',(p,r)=>`Three things I wish I knew before I bought ${p}.`,'counts on fingers while holding the product','selfie handheld'],
+['Day-in-the-life','Sehari bersama produk',(p,r)=>`Come with me, this is how ${p} fits into my day.`,'uses the product at different moments of the day','POV / over-the-shoulder'],
+['Before / After','Sebelum / Sesudah',(p,r)=>`This is me before ${p}... and this is after.`,'contrasts the old way vs. using the product','propped phone'],
+['GRWM','GRWM',(p,r)=>`Get ready with me, and yes, ${p} is part of it.`,'uses the product while getting ready','propped phone on a surface'],
+['Tutorial','Tutorial',(p,r)=>`Here's exactly how I use ${p}, super quick.`,'step-by-step use with close-ups','over-the-shoulder'],
+['Honest review','Review jujur',(p,r)=>`Honest review of ${p}, no sponsor voice, I promise.`,'tests the product, gives pros and one small con','selfie handheld'],
+['Storytime / POV','Storytime / POV',(p,r)=>`Storytime: ${r}, and then I found ${p}.`,'tells a short story, product revealed naturally','selfie handheld']];
+O.probBy={
+Beauty:["my skin always feels dry and dull by midday~Kulit selalu kering dan kusam saat siang","my skincare routine takes forever and I never stick to it~Rutinitas skincare lama dan tidak konsisten","products I tried before made my skin break out~Produk sebelumnya bikin jerawat","I can never find something that works for my skin~Susah cari yang cocok di kulit"],
+Fitness:["my bottle leaks in my gym bag~Botol bocor di tas gym","my drink gets warm halfway through my workout~Minuman cepat hangat saat olahraga","my gear falls apart after a few weeks~Perlengkapan cepat rusak","I can never stay consistent with my workouts~Susah konsisten olahraga"],
+Tech:["my battery dies right when I need it~Baterai habis saat dibutuhkan","my cables and gadgets are a tangled mess~Kabel dan gadget berantakan","my old gadget lags all day~Gadget lama sering lemot","setup with my last one took forever~Setup sebelumnya ribet"],
+Food:["I never have a quick snack that is actually good~Susah cari camilan cepat yang enak","my mornings are so rushed I skip breakfast~Pagi terburu-buru sampai skip sarapan","healthy options always taste boring~Pilihan sehat rasanya hambar","I am tired of the same boring drinks~Bosan minuman yang itu-itu saja"],
+Home:["my place always feels messy and cluttered~Rumah selalu berantakan","cleaning takes way too long~Bersih-bersih terlalu lama","my space feels dull and uncomfortable~Ruangan terasa membosankan","nothing I bought lasted more than a month~Barang cepat rusak"],
+Fashion:["I never know what to wear and it takes forever~Bingung pakai apa dan lama","my bags and accessories fall apart so fast~Tas dan aksesoris cepat rusak","nothing I own feels comfortable all day~Tidak nyaman seharian","I cannot find a piece that goes with everything~Susah cari yang cocok dengan semua"]};
+O.benBy={
+Beauty:["my skin looks fresh and glowy all day~Kulit segar dan glowing seharian","it is gentle and fits right into my routine~Lembut dan pas di rutinitas","I noticed a difference in just two weeks~Terlihat bedanya dalam dua minggu"],
+Fitness:["it stays leak-proof and keeps things cold for hours~Anti bocor dan dingin berjam-jam","it keeps up with every single workout~Tahan di setiap latihan","it is light and I barely notice it~Ringan hampir tak terasa"],
+Tech:["the battery lasts all day without any stress~Baterai awet seharian","setup took about a minute~Setup sekitar satu menit","it is fast and just works every time~Cepat dan selalu lancar"],
+Food:["it tastes amazing and is ready in minutes~Enak dan siap dalam menit","it keeps me full without the crash~Kenyang tanpa lemas","my whole family actually likes it~Seluruh keluarga suka"],
+Home:["it makes my space feel fresh and organized~Ruangan jadi segar dan rapi","it cuts my cleaning time in half~Waktu bersih-bersih jadi setengah","it looks great and feels solid~Tampilan bagus dan kokoh"],
+Fashion:["it is comfy all day and goes with everything~Nyaman seharian, cocok dipadukan","the quality feels way better than the price~Kualitas jauh di atas harga","I keep getting compliments on it~Sering dapat pujian"]};
+const cat=()=>O.probBy[S.p.cat]?S.p.cat:'Beauty',probL=()=>O.probBy[cat()],benL=()=>O.benBy[cat()];
+function qFix(){[['prob',probL()],['benefit',benL()]].forEach(([k,l])=>{const x=S.q[k];if(x&&!S.cu['q.'+k]&&!l.some(y=>y.split('~')[0]==x))S.q[k]=''})}
+const Q=()=>({r:S.q.prob||probL()[0].split('~')[0],b:S.q.benefit||benL()[0].split('~')[0],c:S.q.cta||O.cta[0].split('~')[0]});
+const featTxt=()=>v('p','feat')&&v('p','feat')!='No special controls'?v('p','feat').toLowerCase():'its key feature';
+const lookTxt=()=>J([v('p','colors'),v('p','type')]).replace(', ',' ')||'product';
+const tplConcepts=()=>{const q=Q(),p=pn();return FMT.map((f,i)=>({i:i+1,title:`${S.lang=='id'?f[1]:f[0]} — ${p}`,hook:f[2](p,q.r),use:`${f[3]}, with the ${lookTxt()} and ${featTxt()} clearly visible`,payoff:`${cn()}: ${q.b}`,cta:q.c,film:f[4]}))};
+const pSig=()=>[pn(),JSON.stringify(S.p),JSON.stringify(S.q),cn(),lo()].join('|');
+const concepts=()=>S.cs&&S.csSig==pSig()?S.cs:tplConcepts();
+async function startConcepts(){S.csBusy=true;const sg=pSig(),q=Q();
+ try{const sample=await getSample();if(!sample)throw 0;
+  const r=await sample(`You are a UGC ad strategist for TikTok, Instagram Reels and YouTube Shorts (modern American audience).\nPRODUCT: name "${pn()}", category ${cat()}, type ${v('p','type')||'n/a'}, shape ${v('p','shape')||'n/a'}, color ${v('p','colors')||'n/a'}, finish ${v('p','finish')||'n/a'}, material ${v('p','mat')||'n/a'}, branding ${v('p','brand')||'n/a'}, key feature ${v('p','feat')||'n/a'}.\nCREATOR: ${cn()} (${v('c','gender')||'any'}, ${v('c','age')||'any'}). LOCATION: ${lo()}.\nCUSTOMER PROBLEM: ${q.r}. MAIN BENEFIT: ${q.b}. SOFT CTA: ${q.c}.\nWrite exactly 10 original UGC ad concepts, each a DIFFERENT recognizable UGC format (talking-head testimonial, problem→solution, unboxing, things I wish I knew, day-in-the-life, before/after, GRWM, tutorial, honest review, storytime/POV...). Every concept must be SPECIFIC to this exact product, its real features and how it is genuinely used in this location. Never generic, never about a different product. Authentic smartphone UGC only, no cinematic moves. No on-screen text.\nReturn ONLY a JSON array of 10 objects: {"format":"","hook":"exact opening line, casual American English, 8-16 words","use":"how the product is naturally shown in use, referencing its real features","payoff":"authentic payoff moment","film":"filming style"}.`,{cache:false});
+  const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length<10)throw 0;
+  S.cs=a.slice(0,10).map((x,i)=>({i:i+1,title:`${x.format} — ${pn()}`,hook:x.hook,use:x.use,payoff:x.payoff,cta:q.c,film:x.film}))}
+ catch(e){S.cs=null}
+ S.csSig=sg;S.csBusy=false;render()}
+
+/* ---------- VIDEO: 1 scene = 10 seconds ---------- */
+const mmss=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+const wc=s=>s.trim().split(/\s+/).length,cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const fit=(b,fl)=>{let s=b;for(const f of fl){if(wc(s)>=18)break;if(wc(s+' '+f)<=25)s+=' '+f}return s};
+const nScenes=()=>Math.min(6,Math.max(1,Math.round((+S.d.dur||20)/10)));
+function tplScenes(N){
+ const c=concepts()[(S.concept||1)-1],q=Q(),n=cn(),p=pn(),loc=lo(),ft=featTxt();
+ const B={hook:{v:`${n} holds ${p} up to the camera in the ${loc}, looking straight into the lens with a relatable, urgent expression`,s:fit(c.hook,['Stick with me for ten seconds and I will show you why.','Trust me on this one.']),d:'Fast-paced, direct, conversational'},
+ prob:{v:`Medium selfie shot, ${n} gestures with one hand while ${p} rests nearby in the ${loc}`,s:fit(`I kept running into this: ${q.r}.`,['It was honestly driving me crazy.','Nothing I tried really fixed it.']),d:'Slightly frustrated, humorous, relatable'},
+ intro:{v:`${n} picks up ${p} and tilts it to show its design and branding`,s:fit(`Then a friend told me about ${p}, so I finally figured, why not give it a try.`,['Honestly, best decision.']),d:'Curious, casual, small smile'},
+ d1:{v:`Close-up as ${n} uses ${p}: ${c.use}`,s:fit(`Okay, watch this. ${cap(q.b)}.`,['Seriously, look at how easy that is.','I did not expect it to feel this good.']),d:'Excited but natural, gesturing toward the product'},
+ d2:{v:`Close-up on ${ft} while ${n} keeps using ${p}`,s:fit(`Look at ${ft}, it is honestly so easy, and I use it every single day now.`,['That is what makes it worth it to me.']),d:'Warm, sincere, nodding'},
+ r:{v:`${n} looks into the camera, genuinely surprised and smiling`,s:fit('I did not expect to like it this much, but here we are, and I am not mad about it.',['Seriously.']),d:'Honest reaction, light laugh'},
+ pf:{v:`${n} adjusts ${p} casually in the ${loc}, relaxed`,s:fit('Two weeks in and I am still using it every day, which honestly says a lot coming from me.',['Really.']),d:'Matter-of-fact, confident'},
+ cta:{v:`${n} holds ${p} at chest height and smiles at the camera`,s:fit(`Honestly, ${q.b}. ${cap(q.c)}.`,['Seriously, go check it out.']),d:'Warm, casual, like telling a friend'}};
+ if(N==1)return[{...B.hook,s:fit(c.hook,['Honestly, '+q.c+'.','Seriously, go check it out.'])}];
+ const mid=['prob','intro','d1','d2','r','pf'],m=N-2,seq=['hook'];
+ for(let k=0;k<m;k++)seq.push(m==1?'intro':mid[Math.round(k*(mid.length-1)/Math.max(1,m-1))]);seq.push('cta');
+ return seq.map(x=>B[x])}
+const sig=()=>[S.d.nl,S.d.dur,S.concept,JSON.stringify(S.q),JSON.stringify(S.p),cn(),lo()].join('|');
+async function startScript(){
+ S.trBusy=true;S.trErr='';const sg=sig(),N=nScenes(),NL=S.d.nl||'English',c=concepts()[(S.concept||1)-1],q=Q();
+ try{const sample=await getSample();if(!sample)throw 0;
+  const r=await sample(`Write a UGC ad split into exactly ${N} scenes. EACH SCENE IS EXACTLY 10 SECONDS, one continuous smartphone-style shot with one spoken line.\nPRODUCT: "${pn()}" (${pDesc()||'n/a'}). CREATOR: ${cn()}. LOCATION: ${lo()}.\nCONCEPT: ${c.title}. Hook (scene 1 must open with this idea): "${c.hook}". Product in use: ${c.use}. Payoff: ${c.payoff}.\nCUSTOMER PROBLEM: ${q.r}. MAIN BENEFIT: ${q.b}. SOFT CTA (final scene only, once): ${q.c}.\nRULES: "spoken" is written in ${NL}, 18-25 words (about 10 seconds of natural speech), first-person casual creator talking to camera, contractions, personal-experience claims, never ad copy, no "Introducing" and no "Say goodbye to". Story flow across scenes: hook → relatable problem → product introduced naturally → demo (product actually being used, matching its real features) → honest reaction → ONE soft CTA at the very end. It must feel like ONE authentic creator video. "visual" is in English: the exact action of ${cn()} with the product, framing and location area, fully consistent with the product description; NO text, captions or graphics on screen. "delivery" is in English: tone, energy, gesture. The creator is the only speaker.\nReturn ONLY a JSON array of exactly ${N} objects: {"visual":"","spoken":"","delivery":""}.`,{cache:false});
+  const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length!=N)throw 0;S.scr=a.map(x=>({v:String(x.visual).replace(/\.$/,''),s:x.spoken,d:String(x.delivery).replace(/\.$/,'')}))}
+ catch(e){S.scr=null;S.trErr=t('Auto-writing unavailable — a template script (English, 18–25 words per scene) was used.','Penulisan otomatis tidak tersedia — dipakai skrip template (Inggris, 18–25 kata per adegan).')}
+ S.trSig=sg;S.trBusy=false;render()}
+function videos(){
+ const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1];
+ const sc=S.scr&&S.scr.length==N?S.scr:tplScenes(N),out=[];
+ for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)})`,
+ `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. 9:16 vertical, authentic smartphone UGC look (${c.film}), natural lighting, slight handheld movement, no cinematic effects. One continuous 10-second shot.`,
+ `NO TEXT: There is no on-screen text of any kind: no captions, subtitles, titles, overlays, stickers, emojis, graphics, watermarks or UI. The only readable text is the real printed branding on the physical product.`,
+ `AUDIO: The only voice is ${n} speaking the Spoken Line below, naturally paced across the full 10 seconds. Only natural ambient room sound is allowed. No background music, no voice-over, no narrator, no other voices, no added sound effects.`,
+ `NARRATION LANGUAGE: ${NL}. The Spoken Line is spoken in ${NL}. All other instructions are in English.`,
+ `CONTINUITY: ${k==0?'Opening video — hook in the first 3 seconds':`Continues directly from Video ${k}: ${n} holding ${p} at chest height in the ${loc}, same framing and energy.`}`,'',
+ `(Shot: ${mmss(k*10)}–${mmss(k*10+10)})`,`- Visual: ${x.v}.`,`- Spoken Line (${NL}, ${wc(x.s)} words): "${x.s}"`,`- Delivery: ${x.d}.`,
+ `END FRAME: ${n} holding ${p} at chest height, looking at the camera, ${loc} behind them.`,'',
+ NEG+'on-screen text, captions, subtitles, text overlays, stickers, emojis, graphics, watermark, background music, voice-over, narrator, extra voices, sound effects, cinematic polish, drone or crane or dolly moves, TV-commercial look, studio lighting, different face or outfit between scenes, altered product design or logo, extra people, distorted hands'].join('\n'))}
+ return out}
+
+/* ---------- SCREENS ---------- */
+const lockBox=(a,b,msg,to,lab)=>`<div class="lock">${a}</div><div class="lock">✅ ${b}</div><p class="hint" style="margin-top:10px">${msg}</p>${nav(lab,to)}`;
+const TT={
+c0:()=>`<h2>${t('Stage 1 — Character','Stage 1 — Karakter')}</h2><p class="hint">${t('Do you want to create a new character or upload your own avatar / model image?','Mau buat karakter baru atau upload gambar avatar / model sendiri?')}</p>
+ ${opt(t('A — Create a new character','A — Buat karakter baru'),t('Pick the character settings, then get the image prompt.','Pilih pengaturan karakter, lalu dapatkan prompt gambarnya.'),"S.cm='A';go('cA')")}
+ ${opt(t('B — Upload my avatar / model','B — Upload avatar / model saya'),t('Upload up to 10 images; the AI analyzes face, hair, outfit and more.','Upload maks 10 gambar; AI menganalisa wajah, rambut, outfit, dll.'),"S.cm='B';S.files.c=[];S.msg='';go('cB')")}`,
+cA:()=>`<h2>${t('New Character Settings','Pengaturan Karakter Baru')}</h2><p class="hint">${t('Tap an option. Skip any group to let the creator decide ("your choice").','Tap opsi. Lewati grup mana pun agar dipilihkan kreator ("your choice").')}</p>${cForm(1)}${nav(t('Generate character image prompt →','Buat prompt gambar karakter →'),'cAo')}`,
+cAo:()=>`<h2>${t('Character Image Prompt','Prompt Gambar Karakter')}</h2><p class="hint">${t('Use this prompt to generate the character image.','Pakai prompt ini untuk generate gambar karakter.')}</p>
+ ${blk('IMAGE PROMPT + NEGATIVE',`Photorealistic smartphone-quality portrait of ${cDesc()}. Believable everyday content creator, NOT a fashion model. Natural window lighting, realistic skin texture with visible pores and tiny imperfections, lived-in real home background softly blurred, slight handheld selfie framing, looking at the camera. Authentic UGC look, no studio polish.\n\n${NEG}fashion model look, airbrushed skin, plastic skin, studio retouching, cinematic lighting, distorted face, extra fingers, deformed hands, watermark, text, cartoon, blurry`)}
+ ${blk(t('Character Summary','Ringkasan Karakter'),`Name: ${cn()}\nGender: ${v('c','gender')||'—'}\nAge: ${v('c','age')||'—'}\nAppearance: ${v('c','eth')||'—'}\nSkin: ${v('c','skin')||'—'} ${v('c','under')}\nEyes: ${v('c','eyes')||'—'}\nHair: ${v('c','hairc')} ${v('c','hair')}\nBody: ${v('c','body')||'—'}\nHeight: ${v('c','height')||'—'}\nOutfit: ${v('c','outfit')||'—'}\nAccessories: ${v('c','acc')||'—'}\nPersonality: ${v('c','pers')||'—'}`)}
+ ${nav(t('Next: Character Sheet prompt →','Lanjut: prompt Character Sheet →'),'cS')}`,
+cB:()=>`<h2>${t('Upload Avatar / Model','Upload Avatar / Model')}</h2><p class="hint">${t('Front, side, full body (max 10). Your upload is the identity source of truth.','Depan, samping, full body (maks 10). Gambar upload adalah sumber identitas utama.')}</p>${uploader('c',t('Choose character images','Pilih gambar karakter'))}
+ <h3>${t('Analysis result (adjust if needed)','Hasil analisa (ubah bila perlu)')}</h3>${cForm(0)}${nav(t('Next: Character Sheet prompt →','Lanjut: prompt Character Sheet →'),'cS')}`,
+cS:()=>`<h2>${t('Character Sheet Prompt (16:9)','Prompt Character Sheet (16:9)')}</h2><p class="hint">${t('Generate the sheet with this prompt, then approve to lock the character.','Generate sheet dengan prompt ini, lalu approve untuk mengunci karakter.')}</p>
+ ${blk('SHEET PROMPT + NEGATIVE',`16:9 landscape character reference sheet showing exactly THREE images of the SAME person, side by side, same outfit and hairstyle in all three: Image 1 (left) close-up face shot; Image 2 (center) full-body FRONT view; Image 3 (right) full-body BACK view. The character's name "${cn().toUpperCase()}" in clean bold text at the top center. Plain light-grey studio background, soft even lighting, realistic skin texture. No product, no phone, no props, no text other than the name. The person: ${cDesc()}.${S.cm=='B'?' Use the attached avatar / model images as the absolute identity source: same face, age, skin tone, eyes, hair, body and features. Do not invent a new person.':''}\n\n${NEG}different faces, extra people, distorted hands, extra fingers, blurry, watermark, cartoon, airbrushed skin`)}
+ ${nav('✅ APPROVED — '+t('lock character','kunci karakter'),'cL')}`,
+cL:()=>lockBox('CHARACTER IDENTITY LOCKED','STAGE 1 COMPLETE — Character Sheet',t('Should I start Stage 2 (Product)?','Mulai Stage 2 (Produk)?'),'p0',t('Start Stage 2 (Product) →','Mulai Stage 2 (Produk) →')),
+p0:()=>`<h2>${t('Stage 2 — Product','Stage 2 — Produk')}</h2><p class="hint">${t('Do you want to upload your product image, or should I create a product for you?','Mau upload gambar produk sendiri, atau dibuatkan produk?')}</p>
+ ${opt(t('A — Upload my product image','A — Upload gambar produk saya'),t('The AI analyzes shape, colors, materials and branding.','AI menganalisa bentuk, warna, material, branding.'),"S.pm='A';go('pA')")}
+ ${opt(t('B — Create a product for me','B — Buatkan produk untuk saya')+' '+badge(),t('Pick the product settings.','Pilih pengaturan produk.'),"showPro(S.lang=='id'?'Buatkan produk untuk saya':'Create a product for me')")}`,
+pA:()=>`<h2>${t('Upload Product','Upload Produk')}</h2><p class="hint">${t('Your image has absolute priority — the product is never redesigned.','Gambar upload prioritas mutlak — produk tidak akan didesain ulang.')}</p>${uploader('p',t('Choose product image','Pilih gambar produk'))}<h3>${t('Product sheet (adjust if needed)','Product sheet (ubah bila perlu)')}</h3>${pForm()}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
+pB:()=>`<h2>${t('Product Settings','Pengaturan Produk')}</h2>${pForm()}${nav(t('Generate product image prompt →','Buat prompt gambar produk →'),'pBo')}`,
+pBo:()=>`<h2>${t('Product Image Prompt','Prompt Gambar Produk')}</h2>${blk('IMAGE PROMPT + NEGATIVE',`Photorealistic product photo of "${pn()}": ${pDesc()}. Placed on a plain light surface, soft natural light, sharp focus, accurate proportions, clean realistic details.\n\n${NEG}distorted shape, wrong logo, extra buttons, watermark, blur, text errors, people, hands`)}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
+pS:()=>`<h2>${t('Product Sheet Prompt (16:9)','Prompt Product Sheet (16:9)')}</h2>
+ ${blk('PRODUCT SHEET',`Product: ${pn()}\nType: ${v('p','type')||'—'}\nShape: ${v('p','shape')||'—'}\nColor/finish: ${v('p','colors')||'—'} ${v('p','finish')}\nMaterials: ${v('p','mat')||'—'}\nBranding: ${v('p','brand')||'—'}\nDetails: ${v('p','feat')||'—'}\nHow a creator holds/uses it: natural one-hand grip, label facing the camera`)}
+ ${blk('SHEET PROMPT + NEGATIVE',`16:9 landscape product reference sheet showing THREE images of the SAME product, side by side: Image 1 (left) close-up detail shot (logo, texture, key feature); Image 2 (center) full product FRONT view; Image 3 (right) full product BACK or SIDE view. The product name "${pn().toUpperCase()}" in clean bold text at the top center. Plain light studio background, soft even lighting. Exact same shape, colors, materials and branding in all three images${S.pm=='A'?' — follow the attached product image exactly, do not redesign it':''}. Details: ${pDesc()}. No people, no hands, no extra objects.\n\n${NEG}different design, wrong logo, wrong colors, distorted shape, extra buttons, watermark, blur, people, hands`)}
+ <p class="hint" style="margin-top:12px">${t('Generate the sheet, then approve to lock the product.','Generate sheet, lalu approve untuk mengunci produk.')}</p>${nav('✅ APPROVED — '+t('lock product','kunci produk'),'pL')}`,
+pL:()=>lockBox('PRODUCT DESIGN LOCKED','STAGE 2 COMPLETE — Product Sheet',t('Should I start Stage 3 (Location)?','Mulai Stage 3 (Lokasi)?'),'l0',t('Start Stage 3 (Location) →','Mulai Stage 3 (Lokasi) →')),
+l0:()=>{const L='ABCDE';return `<h2>${t('Stage 3 — Location','Stage 3 — Lokasi')}</h2><p class="hint">${t('Which location do you want to use?','Lokasi mana yang ingin dipakai?')} (${esc(pn())} + ${esc(cn())})</p>
+ ${sug().map((l,i)=>opt(`${L[i]} — ${S.lang=='id'?l.id:l.n}`,t('Fits because it is a ','Cocok karena ')+(S.lang=='id'?l.wi:l.w)+'.',`pickLoc(${i})`)).join('')}
+ ${opt(t('F — I will describe my own location','F — Saya deskripsikan lokasi sendiri'),t('Enter your own place and visual details.','Masukkan lokasi dan detail visual sendiri.'),'go(\'lC\')')}`},
+lC:()=>`<h2>${t('Custom Location','Lokasi Kustom')}</h2><div class="fl"><span>${t('Location name','Nama lokasi')}</span><input type="text" data-s="lcn" value="${esc(S.lcn||'')}" placeholder="${t('e.g. Small modern kitchen','mis. Dapur modern kecil')}"></div><div class="fl"><span>${t('Layout, objects and visual details','Tata letak, objek, dan detail visual')}</span><input type="text" data-s="lcd" value="${esc(S.lcd||'')}" placeholder="${t('Describe the place','Jelaskan tempatnya')}"></div><button class="btn" onclick="S.loc={n:S.lcn||'Custom location',d:S.lcd||'lived-in everyday space',p:'natural realistic tones',l:'natural daylight',t:'daytime'};go('lS')">${t('Use this location →','Gunakan lokasi ini →')}</button>`,
+lS:()=>{const l=S.loc;return `<h2>${t('Location Sheet','Location Sheet')}</h2>${blk('LOCATION SHEET',`Location: ${l.n}\nLayout & objects: ${l.d}\nColor palette: ${l.p}\nLighting: ${l.l}\nTime of day: ${l.t}\nMood: lived-in, realistic, everyday — NOT a staged studio`)}
+ ${blk('REFERENCE PROMPT + NEGATIVE',`16:9 landscape location reference sheet showing THREE images of the SAME place, side by side: Image 1 (left) wide view; Image 2 (center) medium angle; Image 3 (right) detail corner. Location name "${l.n.toUpperCase()}" in clean bold text at the top center. A real, lived-in ${l.n.toLowerCase()}: ${l.d}. Color palette: ${l.p}. Lighting: ${l.l}, ${l.t}. Identical architecture, layout, objects and colors in all three images. Authentic everyday feel, slight natural clutter. No people, no product.\n\n${NEG}people, product, staged studio, cinematic lighting, different layout between images, watermark, text other than the name, blur, distorted perspective`)}${nav('✅ '+t('Lock location','Kunci lokasi'),'lL')}`},
+lL:()=>lockBox('LOCATION LOCKED','STAGE 3 COMPLETE — Location',t('Should I generate the 10 UGC ad concepts?','Generate 10 konsep iklan UGC?'),'k0',t('Yes, go to Stage 4 (Concepts) →','Ya, lanjut Stage 4 (Konsep) →')),
+k0:()=>{qFix();return `<h2>${t('Stage 4 — 10 UGC Ad Concepts','Stage 4 — 10 Konsep Iklan UGC')}</h2><p class="hint">${t('The options below match your product category','Opsi di bawah menyesuaikan kategori produkmu')}: <b>${esc(cat())}</b>. ${t('The 10 concepts are written for your exact product.','10 konsep ditulis khusus untuk produkmu.')}</p>
+ ${chips('q','prob',t('Customer problem','Masalah customer'),probL())}${chips('q','benefit',t('Main benefit / honest reaction','Manfaat utama / reaksi jujur'),benL())}${chips('q','cta',t('Soft call to action','Soft CTA'),O.cta)}${nav(t('Yes, generate 10 concepts →','Ya, buat 10 konsep →'),'k1')}`},
+k1:()=>{if(S.csSig!==pSig()){if(!S.csBusy)startConcepts();return `<h2>Stage 4</h2><p class="hint">⏳ ${t('Writing 10 concepts for','Menulis 10 konsep untuk')} ${esc(pn())}…</p>`}
+ return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2><p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
+d0:()=>`<h2>${t('Stage 5 — Duration & Narration','Stage 5 — Durasi & Narasi')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('What video duration do you want (seconds)?','Durasi video berapa detik?')}</p>
+ ${durField()}${nlField()}
+ <p class="note">${t('Prompts stay in English; only the narration uses the language you pick, and the video model is told which language to speak.','Prompt tetap bahasa Inggris; hanya narasi yang memakai bahasa pilihanmu, dan model video diberi tahu bahasa yang diucapkan.')}</p>${nav(t('Generate video prompts →','Buat video prompt →'),'v0',"S.d.dur=Math.min(60,Math.max(10,+S.d.dur||20));S.d.nl=S.d.nl||'English';")}`,
+v0:()=>{const NL=S.d.nl||'English';
+ if(S.trSig!==sig()){if(!S.trBusy)startScript();return `<h2>Stage 6</h2><p class="hint">⏳ ${t('Writing scene scripts…','Menulis skrip adegan…')}</p>`}
+ const r=videos();return `<h2>${t('Stage 6 — Video Prompts (Omni Flash)','Stage 6 — Video Prompt (Omni Flash)')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${t('Narration','Narasi')}: ${esc(NL)}. ${t('Each scene has 18–25 spoken words, no on-screen text, and no sound except the creator and natural ambience.','Tiap adegan 18–25 kata, tanpa teks di layar, dan tanpa suara selain kreator dan suara natural.')}</p>
+ ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}${blk(t('Copy all prompts','Salin semua prompt'),r.join('\n\n────────\n\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
+ <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 in Omni Flash with the three sheets attached.\n2) Use the last frame of each video as the start frame of the next.\n3) Join all videos in order in a video editor.','1) Generate Video 1 di Omni Flash dengan 3 sheet terlampir.\n2) Pakai last frame tiap video sebagai start frame video berikutnya.\n3) Gabungkan semua video secara berurutan di video editor.')}</pre>${nav('','k1')}`}
+};
+const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lokasi'),t('Concept','Konsep'),t('Duration','Durasi'),t('Video','Video')];
+function render(keep){
+ C.length=0;const g=stageOf(S.st),y=scrollY;
+ document.getElementById('tag').textContent=t('UGC ad prompts for Omni Flash · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
+ document.getElementById('bn').innerHTML=`<span>✓ <b>${t('Unlocked local version','Versi lokal terbuka')}</b> — ${t('All interface options enabled: 10 concepts, 10–60 seconds, custom fields and uploads.','Semua opsi antarmuka aktif: 10 konsep, 10–60 detik, kolom kustom dan upload.')}</span>`;
+ document.getElementById('lang').innerHTML=['en','id'].map(l=>`<button class="${S.lang==l?'on':''}" onclick="S.lang='${l}';render(true)">${l.toUpperCase()}</button>`).join('');
+ document.getElementById('pg').innerHTML=STG().map((n,i)=>`<div class="${i+1==g?'on':i+1<g?'dn':''}"><b></b>${i+1<g?'✓ ':''}${n}</div>`).join('');
+ document.getElementById('panel').innerHTML=TT[S.st]();
+ if(keep)scrollTo(0,y);
+}
+render();
+</script></body></html>
