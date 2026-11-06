@@ -108,7 +108,7 @@ function pickChip(key,i,multi){const[o,k]=key.split('.');const val=R[key][i].spl
 function pickCustom(key){const[o,k]=key.split('.');S.cu[key]=true;S[o][k]='';render(true)}
 const txt=(o,k,label,ph)=>`<div class="fl"><span>${label}</span><input type="text" data-o="${o}" data-k="${k}" value="${esc(S[o][k]||'')}" placeholder="${ph}"></div>`;
 document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value;else if(d.scene!==undefined&&d.field){const i=+d.scene;if(!S.scr)S.scr=tplScenes(nScenes());if(S.scr[i])S.scr[i][d.field]=e.target.value;S.trSig=sig()}queueAutoSave()});
-document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){S.files[d.up]=[...S.files[d.up],...e.target.files].slice(0,d.up=='c'?10:4);render(true)}queueAutoSave()});
+document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){const incoming=[...e.target.files],remaining=Math.max(0,4-S.files[d.up].length);S.files[d.up]=[...S.files[d.up],...incoming.slice(0,remaining)];S.msg=incoming.length>remaining?t('Maximum 4 images per analysis. Extra images were not added.','Maksimal 4 gambar per analisis. Gambar selebihnya tidak ditambahkan.'):'';e.target.value='';render(true)}queueAutoSave()});
 
 /* ---------- COPY (works in iframes) ---------- */
 const blk=(title,text)=>{C.push(text);return `<div class="blk"><div class="bh"><span>${title}</span><button class="btn s" onclick="cp(${C.length-1},this)">${t('Copy','Salin')}</button></div><pre>${esc(text)}</pre></div>`};
@@ -164,7 +164,7 @@ async function analyze(k){const m=document.getElementById('am'),b=document.getEl
   const keys=k=='c'?'gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)':'type, shape, colors, finish (Matte/Glossy/Metallic), mat (materials), brand (logo and branding placement), feat (buttons, controls, details)';
   const r=await sample(`Analyze the attached ${k=='c'?'person (avatar / model reference)':'product'} image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`,{images:S.files[k],cache:false});
   Object.assign(S[k],JSON.parse((r.text.match(/\{[\s\S]*\}/)||['{}'])[0]));S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisa selesai — cek dan ubah opsi di bawah bila perlu.');render(true);
- }catch(e){m.textContent=t('Analysis failed. Please pick options manually.','Analisa gagal. Pilih opsi secara manual.');if(b)b.disabled=false}}
+ }catch(e){const detail=e&&e.message?e.message:'Kesalahan tidak diketahui';m.textContent=t('Analysis failed: ','Analisa gagal: ')+detail;if(b)b.disabled=false}}
 
 /* ---------- OPTION LISTS (value~Indonesian label) ---------- */
 const O={
