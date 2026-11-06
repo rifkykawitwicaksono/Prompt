@@ -156,15 +156,67 @@ async function getSample(){
 function uploader(k,label){const f=S.files[k];
  return `<div class="fl"><span>${label}</span><input type="file" accept="image/*" multiple data-up="${k}"></div><div class="th">${f.map(x=>`<img src="${URL.createObjectURL(x)}">`).join('')}</div>
  ${f.length?`<button class="btn" id="an" onclick="analyze('${k}')">🔍 ${k=='c'?t('Analyze character','Analisa karakter'):t('Analyze product','Analisa produk')}</button>`:''}<div class="note" id="am">${esc(S.msg)}</div>`}
+function extractAnalysisObject(raw){
+ const text=String(raw||'').replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
+ const first=text.indexOf('{');
+ if(first<0)throw new Error('AI tidak mengembalikan data produk terstruktur. Coba foto yang lebih jelas.');
+ let depth=0,inString=false,escaped=false;
+ for(let i=first;i<text.length;i++){
+  const ch=text[i];
+  if(inString){if(escaped)escaped=false;else if(ch==='\\\\')escaped=true;else if(ch==='"')inString=false;continue}
+  if(ch==='"'){inString=true;continue}
+  if(ch==='{')depth++;
+  if(ch==='}'&&--depth===0)return JSON.parse(text.slice(first,i+1));
+ }
+ throw new Error('Hasil analisis tidak lengkap. Coba analisis lagi.');
+}
 async function analyze(k){const m=document.getElementById('am'),b=document.getElementById('an');
- try{const sample=await getSample();
-  if(!sample){m.textContent=t('Auto-analysis unavailable here. Please pick the options below manually.','Analisa otomatis tidak tersedia di sini. Pilih opsi di bawah secara manual.');return}
-  const lim=await sample.limits();if(!lim.images){m.textContent=t('Image analysis unavailable. Pick options manually.','Analisa gambar tidak tersedia. Pilih opsi manual.');return}
-  b.disabled=true;m.textContent=t('Analyzing images…','Menganalisa gambar…');
-  const keys=k=='c'?'gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)':'type, shape, colors, finish (Matte/Glossy/Metallic), mat (materials), brand (logo and branding placement), feat (buttons, controls, details)';
-  const r=await sample(`Analyze the attached ${k=='c'?'person (avatar / model reference)':'product'} image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`,{images:S.files[k],cache:false});
-  Object.assign(S[k],JSON.parse((r.text.match(/\{[\s\S]*\}/)||['{}'])[0]));S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisa selesai — cek dan ubah opsi di bawah bila perlu.');render(true);
- }catch(e){const detail=e&&e.message?e.message:'Kesalahan tidak diketahui';m.textContent=t('Analysis failed: ','Analisa gagal: ')+detail;if(b)b.disabled=false}}
+ try{
+  if(!S.files[k]||!S.files[k].length)throw new Error('Pilih gambar terlebih dahulu.');
+  if(S.files[k].length>4)throw new Error('Maksimal 4 gambar untuk satu kali analisis.');
+  const sample=await getSample();
+  if(!sample)throw new Error('Layanan analisis AI tidak tersedia.');
+  const lim=await sample.limits();if(!lim.images)throw new Error('Analisis gambar tidak tersedia.');
+  if(b)b.disabled=true;
+  m.textContent=k==='p'?t('Inspecting product details…','Memeriksa detail produk…'):t('Analyzing images…','Menganalisis gambar…');
+  let prompt;
+  if(k==='p'){
+   const productName=v('p','name')||'not provided';
+   const category=v('p','cat')||'not provided';
+   prompt=`You are a meticulous e-commerce product visual inspector. Analyze the attached product photo(s) carefully.
+USER-PROVIDED CONTEXT (use only as clues, never as proof): product name: "${productName}"; category: "${category}".
+TASK: inspect the actual pixels and describe the product that is visibly present. If several photos show the same item, combine consistent evidence; do not assume unseen details or invent specifications.
+Return exactly one valid JSON object with these seven keys, each value a concise English string:
+"type": identify the visible product type as specifically as the photo supports (not merely its broad category).
+"shape": describe physical form, silhouette, proportions, parts and visible construction.
+"colors": list the dominant body color first, then secondary/accent colors; distinguish the product from its background.
+"finish": choose the closest visible surface finish: Matte, Glossy, Metallic, Transparent, Textured, or Mixed; explain briefly if useful.
+"mat": describe material only when visually supportable (e.g. clear glass, brushed metal, woven fabric); if uncertain say "Material not identifiable from image".
+"brand": transcribe a logo or brand name only if legible; otherwise say "No clearly readable branding". Describe visible logo placement only when actually visible.
+"feat": list distinctive visible parts, buttons, caps, handles, ports, labels, patterns or included components. Do not claim performance or hidden functions.
+QUALITY RULES: be concrete and product-specific; avoid generic filler such as "modern design" or "high quality". Never infer exact dimensions, ingredients, model number, capacity, safety, performance, or internal material from appearance alone. Do not mistake packaging/background/props for the product. If the photo is blurry, obstructed, distant or cropped, state that limitation in the relevant value. Do not make up missing information. Return JSON only, no markdown and no extra commentary.`;
+  }else{
+   const keys='gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)';
+   prompt=`Analyze the attached person (avatar / model reference) image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`;
+  }
+  const r=await sample(prompt,{images:S.files[k],cache:false});
+  const parsed=extractAnalysisObject(r.text);
+  const required=k==='p'?['type','shape','colors','finish','mat','brand','feat']:['gender','age','skin','eyes','hairc','hair','body','outfit','acc','feat'];
+  const clean={};
+  for(const key of required){
+   const value=parsed[key];
+   if(typeof value==='string'&&value.trim())clean[key]=value.trim().slice(0,240);
+  }
+  if(required.filter(key=>clean[key]).length<Math.ceil(required.length*0.65))throw new Error('Hasil AI belum cukup lengkap. Ambil foto produk yang lebih dekat, terang, dan tidak terpotong.');
+  Object.assign(S[k],clean);
+  S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisis selesai — periksa dan sesuaikan hasil di bawah.');
+  render(true);
+ }catch(e){
+  const detail=e&&e.message?e.message:'Kesalahan tidak diketahui';
+  if(m)m.textContent=t('Analysis failed: ','Analisis gagal: ')+detail;
+  if(b)b.disabled=false;
+ }
+}
 
 /* ---------- OPTION LISTS (value~Indonesian label) ---------- */
 const O={
