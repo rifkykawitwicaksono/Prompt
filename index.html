@@ -155,7 +155,7 @@ async function getSample(){
 /* ---------- UPLOAD + ANALYZE ---------- */
 function uploader(k,label){const f=S.files[k];
  return `<div class="fl"><span>${label}</span><input type="file" accept="image/*" multiple data-up="${k}"></div><div class="th">${f.map(x=>`<img src="${URL.createObjectURL(x)}">`).join('')}</div>
- ${f.length?`<button class="btn" id="an" onclick="analyze('${k}')">🔍 ${k=='c'?t('Analyze character','Analisa karakter'):t('Analyze product','Analisa produk')}</button>`:''}<div class="note" id="am">${esc(S.msg)}</div>`}
+ ${k==='c'&&f.length?`<button class="btn" id="an" onclick="analyze('c')">🔍 ${t('Analyze character','Analisa karakter')}</button>`:''}<div class="note" id="am">${k==='c'?esc(S.msg):''}</div>`}
 function extractAnalysisObject(raw){
  const text=String(raw||'').replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
  const first=text.indexOf('{');
@@ -363,9 +363,9 @@ cS:()=>`<h2>${t('Character Sheet Prompt (16:9)','Prompt Character Sheet (16:9)')
  ${nav('✅ APPROVED — '+t('lock character','kunci karakter'),'cL')}`,
 cL:()=>lockBox('CHARACTER IDENTITY LOCKED','STAGE 1 COMPLETE — Character Sheet',t('Should I start Stage 2 (Product)?','Mulai Stage 2 (Produk)?'),'p0',t('Start Stage 2 (Product) →','Mulai Stage 2 (Produk) →')),
 p0:()=>`<h2>${t('Stage 2 — Product','Stage 2 — Produk')}</h2><p class="hint">${t('Do you want to upload your product image, or should I create a product for you?','Mau upload gambar produk sendiri, atau dibuatkan produk?')}</p>
- ${opt(t('A — Upload my product image','A — Upload gambar produk saya'),t('The AI analyzes shape, colors, materials and branding.','AI menganalisa bentuk, warna, material, branding.'),"S.pm='A';go('pA')")}
+ ${opt(t('A — Upload my product image','A — Upload gambar produk saya'),t('Upload a product photo, then fill in its details manually.','Unggah foto produk, lalu isi detailnya secara manual.'),"S.pm='A';go('pA')")}
  ${opt(t('B — Create a product for me','B — Buatkan produk untuk saya'),t('Pick the product settings.','Pilih pengaturan produk.'),"S.pm='B';go('pB')")}`,
-pA:()=>`<h2>${t('Upload Product','Upload Produk')}</h2><p class="hint">${t('Your image has absolute priority — the product is never redesigned.','Gambar upload prioritas mutlak — produk tidak akan didesain ulang.')}</p>${uploader('p',t('Choose product image','Pilih gambar produk'))}<h3>${t('Product sheet (adjust if needed)','Product sheet (ubah bila perlu)')}</h3>${pForm()}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
+pA:()=>`<h2>${t('Upload Product','Upload Produk')}</h2><p class="hint">${t('Upload your product reference, then complete the product sheet manually. The product is never redesigned.','Unggah gambar referensi produk, lalu lengkapi lembar produk secara manual. Produk tidak akan didesain ulang.')}</p>${uploader('p',t('Choose product image','Pilih gambar produk'))}<h3>${t('Product sheet (adjust if needed)','Product sheet (ubah bila perlu)')}</h3>${pForm()}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
 pB:()=>`<h2>${t('Product Settings','Pengaturan Produk')}</h2>${pForm()}${nav(t('Generate product image prompt →','Buat prompt gambar produk →'),'pBo')}`,
 pBo:()=>`<h2>${t('Product Image Prompt','Prompt Gambar Produk')}</h2>${blk('IMAGE PROMPT + NEGATIVE',`Photorealistic product photo of "${pn()}": ${pDesc()}. Placed on a plain light surface, soft natural light, sharp focus, accurate proportions, clean realistic details.\n\n${NEG}distorted shape, wrong logo, extra buttons, watermark, blur, text errors, people, hands`)}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
 pS:()=>`<h2>${t('Product Sheet Prompt (16:9)','Prompt Product Sheet (16:9)')}</h2>
