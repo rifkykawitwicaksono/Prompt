@@ -119,7 +119,7 @@ function cp(i,b){const x=C[i];let ok=false;
  if(ok)good();else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(good,manual);else manual()}
 const opt=(a,b,fn)=>`<div class="opt" onclick="${fn}"><b>${a}</b><span>${b}</span></div>`;
 
-/* ---------- CLAUDE CONNECTOR: published runtime OR direct Anthropic API (works when this file is uploaded to Claude as an artifact) ---------- */
+/* ---------- CLAUDE CONNECTOR: supported Claude runtime only; never expose provider API keys in this public frontend ---------- */
 function toB64(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const m=1024,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.85).split(',')[1])};im.onerror=()=>rej(new Error('image'));im.src=u})}
 async function getSample(){
  let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}
