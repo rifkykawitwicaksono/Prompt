@@ -121,12 +121,36 @@ const opt=(a,b,fn)=>`<div class="opt" onclick="${fn}"><b>${a}</b><span>${b}</spa
 
 /* ---------- CLAUDE CONNECTOR: supported Claude runtime only; never expose provider API keys in this public frontend ---------- */
 function toB64(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const m=1024,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.85).split(',')[1])};im.onerror=()=>rej(new Error('image'));im.src=u})}
+const SUPABASE_URL='https://pqfpdgpqvinvfooeayip.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_Om983sM09i_5XrTx3AmLFA_10uAjO_w';
+async function imageToGeminiPart(file){
+ const bitmap=await createImageBitmap(file);
+ const scale=Math.min(1,1280/Math.max(bitmap.width,bitmap.height));
+ const canvas=document.createElement('canvas');
+ canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+ canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+ canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
+ bitmap.close();
+ const blob=await new Promise((resolve,reject)=>canvas.toBlob(x=>x?resolve(x):reject(new Error('Gagal memproses gambar.')),'image/jpeg',.82));
+ const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('Gagal membaca gambar.'));reader.readAsDataURL(blob)});
+ return {mimeType:'image/jpeg',data:String(dataUrl).split(',')[1]};
+}
 async function getSample(){
- let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}
- if(!rt)return null;
- const f=async(prompt,o={})=>rt(prompt,o);
- f.limits=async()=>rt.limits?await rt.limits():{images:true};
- return f}
+ const f=async(prompt,o={})=>{
+  const images=Array.isArray(o.images)?await Promise.all(o.images.map(imageToGeminiPart)):[];
+  const response=await fetch(SUPABASE_URL+'/functions/v1/ai-gateway',{
+   method:'POST',
+   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+SUPABASE_PUBLISHABLE_KEY},
+   body:JSON.stringify({prompt,images})
+  });
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error||('Permintaan AI gagal ('+response.status+').'));
+  if(!data.text)throw new Error('AI tidak mengembalikan hasil.');
+  return {text:data.text};
+ };
+ f.limits=async()=>({images:true});
+ return f;
+}
 
 /* ---------- UPLOAD + ANALYZE ---------- */
 function uploader(k,label){const f=S.files[k];
