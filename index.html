@@ -170,7 +170,7 @@ function extractAnalysisObject(raw){
  }
  throw new Error('Hasil analisis tidak lengkap. Coba analisis lagi.');
 }
-async function analyze(k){const m=document.getElementById('am'),b=document.getElementById('an');
+async function analyze(k){if(k!=='c')return;const m=document.getElementById('am'),b=document.getElementById('an');
  try{
   if(!S.files[k]||!S.files[k].length)throw new Error('Pilih gambar terlebih dahulu.');
   if(S.files[k].length>4)throw new Error('Maksimal 4 gambar untuk satu kali analisis.');
