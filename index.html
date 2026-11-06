@@ -73,7 +73,10 @@ function durField(){const cur=String(S.d.dur);return `<div class="fl"><span>${t(
 function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select></div>`}
 function nlChange(val){S.d.nl=val;render(true)}
 const upsell=()=>'';
-function projectSnapshot(){return{...S,files:{c:[],p:[]},hist:[]}}\nfunction writeLocalProject(){try{localStorage.setItem('adsPromptGeneratorProject',JSON.stringify({version:1,savedAt:new Date().toISOString(),S:projectSnapshot()}));return true}catch(e){return false}}\nlet autoSaveTimer=null;function queueAutoSave(){clearTimeout(autoSaveTimer);autoSaveTimer=setTimeout(()=>{const ok=writeLocalProject();const el=document.getElementById('autosaveStatus');if(el)el.textContent=ok?t('Auto-saved on this device','Tersimpan otomatis di perangkat ini'):t('Auto-save unavailable — export JSON','Simpan otomatis gagal — ekspor JSON')},500)}\nfunction saveProject(){if(writeLocalProject())alert(t('Project saved in this browser.','Proyek tersimpan di browser ini.'));else alert(t('Could not save here. Export the project instead.','Tidak bisa menyimpan di browser. Silakan ekspor proyek.'))}
+function projectSnapshot(){return{...S,files:{c:[],p:[]},hist:[]}}
+function writeLocalProject(){try{localStorage.setItem('adsPromptGeneratorProject',JSON.stringify({version:1,savedAt:new Date().toISOString(),S:projectSnapshot()}));return true}catch(e){return false}}
+let autoSaveTimer=null;function queueAutoSave(){clearTimeout(autoSaveTimer);autoSaveTimer=setTimeout(()=>{const ok=writeLocalProject();const el=document.getElementById('autosaveStatus');if(el)el.textContent=ok?t('Auto-saved on this device','Tersimpan otomatis di perangkat ini'):t('Auto-save unavailable — export JSON','Simpan otomatis gagal — ekspor JSON')},500)}
+function saveProject(){if(writeLocalProject())alert(t('Project saved in this browser.','Proyek tersimpan di browser ini.'));else alert(t('Could not save here. Export the project instead.','Tidak bisa menyimpan di browser. Silakan ekspor proyek.'))}
 function openSavedProject(){try{const raw=localStorage.getItem('adsPromptGeneratorProject');if(!raw){alert(t('No saved project found.','Belum ada proyek tersimpan.'));return}const data=JSON.parse(raw);if(!data.S)throw 0;Object.assign(S,data.S);S.files={c:[],p:[]};S.hist=[];render();alert(t('Project opened. Reselect uploaded images if needed.','Proyek dibuka. Pilih ulang gambar upload jika diperlukan.'))}catch(e){alert(t('Could not open saved project.','Proyek tersimpan tidak bisa dibuka.'))}}
 function downloadText(name,content,type='text/plain'){const blob=new Blob([content],{type:type+';charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function exportProject(){const data={app:'ADS PROMPT GENERATOR',version:1,exportedAt:new Date().toISOString(),project:{...S,files:{c:[],p:[]},hist:[]}};downloadText('ads-prompt-project.json',JSON.stringify(data,null,2),'application/json')}
@@ -118,7 +121,14 @@ const opt=(a,b,fn)=>`<div class="opt" onclick="${fn}"><b>${a}</b><span>${b}</spa
 
 /* ---------- CLAUDE CONNECTOR: published runtime OR direct Anthropic API (works when this file is uploaded to Claude as an artifact) ---------- */
 function toB64(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const m=1024,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.85).split(',')[1])};im.onerror=()=>rej(new Error('image'));im.src=u})}
-async function getSample(){\n let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}\n if(!rt)return null;\n const f=async(prompt,o={})=>rt(prompt,o);\n f.limits=async()=>rt.limits?await rt.limits():{images:true};\n return f}\n\n/* ---------- UPLOAD + ANALYZE ---------- */
+async function getSample(){
+ let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}
+ if(!rt)return null;
+ const f=async(prompt,o={})=>rt(prompt,o);
+ f.limits=async()=>rt.limits?await rt.limits():{images:true};
+ return f}
+
+/* ---------- UPLOAD + ANALYZE ---------- */
 function uploader(k,label){const f=S.files[k];
  return `<div class="fl"><span>${label}</span><input type="file" accept="image/*" multiple data-up="${k}"></div><div class="th">${f.map(x=>`<img src="${URL.createObjectURL(x)}">`).join('')}</div>
  ${f.length?`<button class="btn" id="an" onclick="analyze('${k}')">🔍 ${k=='c'?t('Analyze character','Analisa karakter'):t('Analyze product','Analisa produk')}</button>`:''}<div class="note" id="am">${esc(S.msg)}</div>`}
@@ -244,7 +254,8 @@ async function startScript(){
   const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length!=N)throw 0;S.scr=a.map(x=>({v:String(x.visual).replace(/\.$/,''),s:x.spoken,d:String(x.delivery).replace(/\.$/,'')}))}
  catch(e){S.scr=null;S.trErr=t('Auto-writing unavailable — a template script (English, 18–25 words per scene) was used.','Penulisan otomatis tidak tersedia — dipakai skrip template (Inggris, 18–25 kata per adegan).')}
  S.trSig=sg;S.trBusy=false;render()}
-function storyboardPreview(sc){return '<div class="storyboard-grid">'+sc.map((x,i)=>'<div class="scene-card"><div class="scene-thumb"><span>FRAME '+String(i+1).padStart(2,'0')+' · '+mmss(i*10)+'</span></div><b>'+t('Scene','Adegan')+' '+(i+1)+' · '+mmss(i*10)+'–'+mmss((i+1)*10)+'</b><p>'+esc(x.v)+'</p></div>').join('')+'</div><p class="note">'+t('This is a layout preview from your scene descriptions, not a generated image or video.','Ini pratinjau tata letak dari deskripsi adegan, bukan gambar atau video hasil generate.')+'</p>'}\nfunction videos(){
+function storyboardPreview(sc){return '<div class="storyboard-grid">'+sc.map((x,i)=>'<div class="scene-card"><div class="scene-thumb"><span>FRAME '+String(i+1).padStart(2,'0')+' · '+mmss(i*10)+'</span></div><b>'+t('Scene','Adegan')+' '+(i+1)+' · '+mmss(i*10)+'–'+mmss((i+1)*10)+'</b><p>'+esc(x.v)+'</p></div>').join('')+'</div><p class="note">'+t('This is a layout preview from your scene descriptions, not a generated image or video.','Ini pratinjau tata letak dari deskripsi adegan, bukan gambar atau video hasil generate.')+'</p>'}
+function videos(){
  const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1],ratio=S.d.ratio||'9:16',style=S.d.style||'Authentic UGC',platform=S.d.platform||'TikTok',voice=S.d.voice||'Natural female voice',music=S.d.music||'None',sfx=S.d.sfx||'Natural ambience',continuity=S.d.consistency||'Strict';
  const sc=S.scr&&S.scr.length==N?S.scr:tplScenes(N),out=[];
  for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)})`,
@@ -318,12 +329,12 @@ v0:()=>{const NL=S.d.nl||'English';
  <div class="fl"><span>Spoken line (${esc(NL)})</span><textarea data-scene="${i}" data-field="s" onchange="render(true)" rows="3" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.s)}</textarea></div>
  <div class="fl"><span>Delivery</span><textarea data-scene="${i}" data-field="d" onchange="render(true)" rows="2" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.d)}</textarea></div></div>`).join('')}
  <p class="note">${t('Edit any scene above. Changes are reflected in the prompts below.','Ubah adegan di atas. Perubahan akan tercermin pada prompt di bawah.')}</p>
- ${blk(t('Copy all prompts','Salin semua prompt'),r.join('\\n\\n────────\\n\\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
- <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 with the three reference sheets attached.\\n2) Use the last frame of each video as the start frame of the next.\\n3) Join all videos in order in a video editor.','1) Generate Video 1 dengan 3 sheet referensi.\\n2) Pakai last frame tiap video sebagai start frame berikutnya.\\n3) Gabungkan semua video secara berurutan di editor video.')}</pre>${nav('','k1')}`}
+ ${blk(t('Copy all prompts','Salin semua prompt'),r.join('\n\n────────\n\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
+ <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 with the three reference sheets attached.\n2) Use the last frame of each video as the start frame of the next.\n3) Join all videos in order in a video editor.','1) Generate Video 1 dengan 3 sheet referensi.\n2) Pakai last frame tiap video sebagai start frame berikutnya.\n3) Gabungkan semua video secara berurutan di editor video.')}</pre>${nav('','k1')}`}
 };
 const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lokasi'),t('Concept','Konsep'),t('Duration','Durasi'),t('Video','Video')];
 function render(keep){
- C.length=0;const g=stageOf(S.st),y=scrollY;
+ C.length=0;const g=stageOf(S.st),y=scrollY;queueAutoSave();
  document.getElementById('tag').textContent=t('UGC ad prompts for Omni Flash · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
  document.getElementById('bn').innerHTML=`<span>✓ <b>${t('Unlocked local version','Versi lokal terbuka')}</b> — ${t('All interface options enabled: 10 concepts, 10–60 seconds, custom fields and uploads.','Semua opsi antarmuka aktif: 10 konsep, 10–60 detik, kolom kustom dan upload.')}</span>`;
  document.getElementById('lang').innerHTML=['en','id'].map(l=>`<button class="${S.lang==l?'on':''}" onclick="S.lang='${l}';render(true)">${l.toUpperCase()}</button>`).join('');
