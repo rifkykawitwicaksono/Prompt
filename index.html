@@ -51,7 +51,7 @@ pre{margin:0;background:var(--code);border:1px solid var(--bd);border-radius:14p
 <div class="foot">Generator by <b>BBU CHANNEL</b></div></div>
 <div class="modal" id="pro" onclick="if(event.target===this)closePro()"></div>
 <script>
-const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
+const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English',ratio:'9:16',style:'Authentic UGC',platform:'TikTok',voice:'Natural female voice',music:'None',sfx:'Natural ambience',consistency:'Strict'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
 const t=(e,i)=>S.lang=='id'?i:e;
 const R={},C=[];const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const v=(o,k)=>(S[o][k]||'').trim();const J=a=>a.filter(Boolean).join(', ');
@@ -73,6 +73,15 @@ function durField(){const cur=String(S.d.dur);return `<div class="fl"><span>${t(
 function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select></div>`}
 function nlChange(val){S.d.nl=val;render(true)}
 const upsell=()=>'';
+function saveProject(){const data={version:1,savedAt:new Date().toISOString(),S:{...S,files:{c:[],p:[]},hist:[]}};try{localStorage.setItem('adsPromptGeneratorProject',JSON.stringify(data));alert(t('Project saved in this browser.','Proyek tersimpan di browser ini.'))}catch(e){alert(t('Could not save here. Export the project instead.','Tidak bisa menyimpan di browser. Silakan ekspor proyek.'))}}
+function openSavedProject(){try{const raw=localStorage.getItem('adsPromptGeneratorProject');if(!raw){alert(t('No saved project found.','Belum ada proyek tersimpan.'));return}const data=JSON.parse(raw);if(!data.S)throw 0;Object.assign(S,data.S);S.files={c:[],p:[]};S.hist=[];render();alert(t('Project opened. Reselect uploaded images if needed.','Proyek dibuka. Pilih ulang gambar upload jika diperlukan.'))}catch(e){alert(t('Could not open saved project.','Proyek tersimpan tidak bisa dibuka.'))}}
+function downloadText(name,content,type='text/plain'){const blob=new Blob([content],{type:type+';charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function exportProject(){const data={app:'ADS PROMPT GENERATOR',version:1,exportedAt:new Date().toISOString(),project:{...S,files:{c:[],p:[]},hist:[]}};downloadText('ads-prompt-project.json',JSON.stringify(data,null,2),'application/json')}
+function importProject(input){const file=input.files&&input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),p=data.project||data;if(!p||!p.c||!p.p||!p.d)throw 0;Object.assign(S,p);S.files={c:[],p:[]};S.hist=[];render();alert(t('Project imported. Reselect uploaded images if needed.','Proyek diimpor. Pilih ulang gambar upload jika diperlukan.'))}catch(e){alert(t('Invalid project file.','File proyek tidak valid.'))}};reader.readAsText(file);input.value=''}
+function downloadAllPrompts(){const out=videos().join('\\n\\n------------------------------\\n\\n');downloadText('ads-video-prompts.txt',out)}
+function settingsField(key,label,options){const cur=S.d[key]||options[0][0];return '<div class="fl"><span>'+label+'</span><select onchange="S.d.'+key+'=this.value;render(true)">'+options.map(x=>'<option value="'+esc(x[0])+'" '+(cur===x[0]?'selected':'')+'>'+esc(x[1])+'</option>').join('')+'</select></div>'}
+function projectTools(){return '<div class="blk"><h3>'+t('Project tools','Peralatan proyek')+'</h3><div class="row"><button class="btn s" onclick="saveProject()">'+t('Save project','Simpan proyek')+'</button><button class="btn s" onclick="openSavedProject()">'+t('Open saved','Buka tersimpan')+'</button><button class="btn s" onclick="exportProject()">'+t('Export JSON','Ekspor JSON')+'</button><label class="btn s" style="cursor:pointer">'+t('Import JSON','Impor JSON')+'<input type="file" accept="application/json,.json" onchange="importProject(this)" style="display:none"></label></div><p class="note">'+t('Browser save is local to this device. Export JSON to move the project. Uploaded image files are not embedded.','Simpan browser hanya berlaku di perangkat ini. Ekspor JSON untuk memindahkan proyek. File gambar upload tidak ikut disimpan.')+'</p></div>'}
+
 
 /* ---------- OPTION CHIPS ---------- */
 function chips(o,k,label,opts,multi){
@@ -95,7 +104,7 @@ function pickChip(key,i,multi){const[o,k]=key.split('.');const val=R[key][i].spl
  if(multi){let a=(S[o][k]||'').split(', ').filter(Boolean);a=a.includes(val)?a.filter(x=>x!=val):[...a,val].slice(-3);S[o][k]=a.join(', ')}else S[o][k]=S[o][k]==val?'':val;render(true)}
 function pickCustom(key){const[o,k]=key.split('.');S.cu[key]=true;S[o][k]='';render(true)}
 const txt=(o,k,label,ph)=>`<div class="fl"><span>${label}</span><input type="text" data-o="${o}" data-k="${k}" value="${esc(S[o][k]||'')}" placeholder="${ph}"></div>`;
-document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value});
+document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value;else if(d.scene!==undefined&&d.field){const i=+d.scene;if(!S.scr)S.scr=tplScenes(nScenes());if(S.scr[i])S.scr[i][d.field]=e.target.value;S.trSig=sig()}});
 document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){S.files[d.up]=[...S.files[d.up],...e.target.files].slice(0,d.up=='c'?10:4);render(true)}});
 
 /* ---------- COPY (works in iframes) ---------- */
@@ -249,17 +258,17 @@ async function startScript(){
  catch(e){S.scr=null;S.trErr=t('Auto-writing unavailable — a template script (English, 18–25 words per scene) was used.','Penulisan otomatis tidak tersedia — dipakai skrip template (Inggris, 18–25 kata per adegan).')}
  S.trSig=sg;S.trBusy=false;render()}
 function videos(){
- const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1];
+ const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1],ratio=S.d.ratio||'9:16',style=S.d.style||'Authentic UGC',platform=S.d.platform||'TikTok',voice=S.d.voice||'Natural female voice',music=S.d.music||'None',sfx=S.d.sfx||'Natural ambience',continuity=S.d.consistency||'Strict';
  const sc=S.scr&&S.scr.length==N?S.scr:tplScenes(N),out=[];
  for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)})`,
- `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. 9:16 vertical, authentic smartphone UGC look (${c.film}), natural lighting, slight handheld movement, no cinematic effects. One continuous 10-second shot.`,
+ `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. ${ratio} aspect ratio, ${style} visual style for ${platform}, filming approach (${c.film}), natural lighting, slight handheld movement. One continuous 10-second shot.`,
  `NO TEXT: There is no on-screen text of any kind: no captions, subtitles, titles, overlays, stickers, emojis, graphics, watermarks or UI. The only readable text is the real printed branding on the physical product.`,
- `AUDIO: The only voice is ${n} speaking the Spoken Line below, naturally paced across the full 10 seconds. Only natural ambient room sound is allowed. No background music, no voice-over, no narrator, no other voices, no added sound effects.`,
+ `AUDIO: ${n} speaks the Spoken Line below in a ${voice} style, naturally paced across the full 10 seconds. Music: ${music}. Sound effects: ${sfx}. No voice-over, no narrator, no other voices.`,
  `NARRATION LANGUAGE: ${NL}. The Spoken Line is spoken in ${NL}. All other instructions are in English.`,
- `CONTINUITY: ${k==0?'Opening video — hook in the first 3 seconds':`Continues directly from Video ${k}: ${n} holding ${p} at chest height in the ${loc}, same framing and energy.`}`,'',
+ `CONTINUITY (${continuity}): ${k==0?'Opening video — hook in the first 3 seconds':`Continues directly from Video ${k}: ${n} holding ${p} at chest height in the ${loc}, same framing and energy.`} Keep the same face, hair, outfit, body proportions, product shape, colors, logo placement and location across every scene.`,'',
  `(Shot: ${mmss(k*10)}–${mmss(k*10+10)})`,`- Visual: ${x.v}.`,`- Spoken Line (${NL}, ${wc(x.s)} words): "${x.s}"`,`- Delivery: ${x.d}.`,
  `END FRAME: ${n} holding ${p} at chest height, looking at the camera, ${loc} behind them.`,'',
- NEG+'on-screen text, captions, subtitles, text overlays, stickers, emojis, graphics, watermark, background music, voice-over, narrator, extra voices, sound effects, cinematic polish, drone or crane or dolly moves, TV-commercial look, studio lighting, different face or outfit between scenes, altered product design or logo, extra people, distorted hands'].join('\n'))}
+ NEG+'on-screen text, captions, subtitles, text overlays, stickers, emojis, graphics, watermark, voice-over, narrator, extra voices, different face or outfit between scenes, altered product design or logo, extra people, distorted hands'].join('\n'))}
  return out}
 
 /* ---------- SCREENS ---------- */
@@ -301,14 +310,29 @@ k0:()=>{qFix();return `<h2>${t('Stage 4 — 10 UGC Ad Concepts','Stage 4 — 10 
  ${chips('q','prob',t('Customer problem','Masalah customer'),probL())}${chips('q','benefit',t('Main benefit / honest reaction','Manfaat utama / reaksi jujur'),benL())}${chips('q','cta',t('Soft call to action','Soft CTA'),O.cta)}${nav(t('Yes, generate 10 concepts →','Ya, buat 10 konsep →'),'k1')}`},
 k1:()=>{if(S.csSig!==pSig()){if(!S.csBusy)startConcepts();return `<h2>Stage 4</h2><p class="hint">⏳ ${t('Writing 10 concepts for','Menulis 10 konsep untuk')} ${esc(pn())}…</p>`}
  return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2><p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
-d0:()=>`<h2>${t('Stage 5 — Duration & Narration','Stage 5 — Durasi & Narasi')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('What video duration do you want (seconds)?','Durasi video berapa detik?')}</p>
+d0:()=>`<h2>${t('Stage 5 — Video Settings','Stage 5 — Pengaturan Video')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('Set duration, platform, visual style and audio before generating.','Atur durasi, platform, gaya visual, dan audio sebelum membuat prompt.')}</p>
  ${durField()}${nlField()}
- <p class="note">${t('Prompts stay in English; only the narration uses the language you pick, and the video model is told which language to speak.','Prompt tetap bahasa Inggris; hanya narasi yang memakai bahasa pilihanmu, dan model video diberi tahu bahasa yang diucapkan.')}</p>${nav(t('Generate video prompts →','Buat video prompt →'),'v0',"S.d.dur=Math.min(60,Math.max(10,+S.d.dur||20));S.d.nl=S.d.nl||'English';")}`,
+ ${settingsField('platform',t('Target platform','Platform tujuan'),[['TikTok','TikTok'],['Instagram Reels','Instagram Reels'],['YouTube Shorts','YouTube Shorts'],['Facebook Reels','Facebook Reels'],['General social video','Video sosial umum']])}
+ ${settingsField('ratio',t('Video aspect ratio','Rasio video'),[['9:16','9:16 — Vertikal'],['16:9','16:9 — Horizontal'],['1:1','1:1 — Persegi']])}
+ ${settingsField('style',t('Visual style','Gaya visual'),[['Authentic UGC','UGC autentik'],['Cinematic','Cinematic'],['Photorealistic commercial','Iklan realistis'],['Lifestyle vlog','Lifestyle vlog'],['Product demonstration','Demo produk']])}
+ ${settingsField('consistency',t('Identity consistency','Konsistensi identitas'),[['Strict','Ketat'],['High','Tinggi'],['Balanced','Seimbang']])}
+ ${settingsField('voice',t('Voice character','Karakter suara'),[['Natural female voice','Suara wanita natural'],['Natural male voice','Suara pria natural'],['Warm mature voice','Suara dewasa hangat'],['Energetic youthful voice','Suara muda energik'],['Calm professional voice','Suara profesional tenang']])}
+ ${settingsField('music',t('Background music','Musik latar'),[['None','Tanpa musik'],['Soft upbeat instrumental','Instrumental ceria lembut'],['Warm lifestyle instrumental','Instrumental lifestyle hangat'],['Energetic pop instrumental','Instrumental pop energik']])}
+ ${settingsField('sfx',t('Sound effects','Efek suara'),[['Natural ambience','Suara lingkungan natural'],['Product handling sounds','Suara saat produk digunakan'],['Light subtle effects','Efek ringan'],['None','Tanpa efek suara']])}
+ <p class="note">${t('These choices are written into the prompts. Actual voice, music and video rendering depend on the AI video service.','Pilihan ini dimasukkan ke prompt. Hasil suara, musik, dan video bergantung pada layanan AI video.')}</p>${projectTools()}${nav(t('Generate video prompts →','Buat video prompt →'),'v0',"S.d.dur=Math.min(60,Math.max(10,+S.d.dur||20));S.d.nl=S.d.nl||'English';")}`,
 v0:()=>{const NL=S.d.nl||'English';
  if(S.trSig!==sig()){if(!S.trBusy)startScript();return `<h2>Stage 6</h2><p class="hint">⏳ ${t('Writing scene scripts…','Menulis skrip adegan…')}</p>`}
- const r=videos();return `<h2>${t('Stage 6 — Video Prompts (Omni Flash)','Stage 6 — Video Prompt (Omni Flash)')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${t('Narration','Narasi')}: ${esc(NL)}. ${t('Each scene has 18–25 spoken words, no on-screen text, and no sound except the creator and natural ambience.','Tiap adegan 18–25 kata, tanpa teks di layar, dan tanpa suara selain kreator dan suara natural.')}</p>
- ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}${blk(t('Copy all prompts','Salin semua prompt'),r.join('\n\n────────\n\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
- <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 in Omni Flash with the three sheets attached.\n2) Use the last frame of each video as the start frame of the next.\n3) Join all videos in order in a video editor.','1) Generate Video 1 di Omni Flash dengan 3 sheet terlampir.\n2) Pakai last frame tiap video sebagai start frame video berikutnya.\n3) Gabungkan semua video secara berurutan di video editor.')}</pre>${nav('','k1')}`}
+ const r=videos(),sc=S.scr&&S.scr.length===r.length?S.scr:tplScenes(r.length);
+ return `<h2>${t('Stage 6 — Storyboard & Video Prompts','Stage 6 — Storyboard & Video Prompt')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${esc(S.d.ratio||'9:16')} · ${esc(S.d.platform||'TikTok')} · ${t('Narration','Narasi')}: ${esc(NL)}.</p>
+ ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}<div class="row"><button class="btn s" onclick="downloadAllPrompts()">${t('Download prompts TXT','Unduh prompt TXT')}</button><button class="btn s" onclick="exportProject()">${t('Export project JSON','Ekspor proyek JSON')}</button><button class="btn s" onclick="saveProject()">${t('Save project','Simpan proyek')}</button></div>
+ <h3>${t('Storyboard preview & script editor','Pratinjau storyboard & editor skrip')}</h3>
+ ${sc.map((x,i)=>`<div class="blk" style="border:1px solid var(--bd);border-radius:14px;padding:12px"><b>${t('Scene','Adegan')} ${i+1} · ${mmss(i*10)}–${mmss((i+1)*10)}</b>
+ <div class="fl"><span>Visual</span><textarea data-scene="${i}" data-field="v" rows="2" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.v)}</textarea></div>
+ <div class="fl"><span>Spoken line (${esc(NL)})</span><textarea data-scene="${i}" data-field="s" rows="3" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.s)}</textarea></div>
+ <div class="fl"><span>Delivery</span><textarea data-scene="${i}" data-field="d" rows="2" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.d)}</textarea></div></div>`).join('')}
+ <p class="note">${t('Edit any scene above. Changes are reflected in the prompts below.','Ubah adegan di atas. Perubahan akan tercermin pada prompt di bawah.')}</p>
+ ${blk(t('Copy all prompts','Salin semua prompt'),r.join('\\n\\n────────\\n\\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
+ <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 with the three reference sheets attached.\\n2) Use the last frame of each video as the start frame of the next.\\n3) Join all videos in order in a video editor.','1) Generate Video 1 dengan 3 sheet referensi.\\n2) Pakai last frame tiap video sebagai start frame berikutnya.\\n3) Gabungkan semua video secara berurutan di editor video.')}</pre>${nav('','k1')}`}
 };
 const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lokasi'),t('Concept','Konsep'),t('Duration','Durasi'),t('Video','Video')];
 function render(keep){
