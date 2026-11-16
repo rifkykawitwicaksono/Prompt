@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101322"><meta name="description" content="Toko produk digital dan tools kreator.">
-<title>Nama Toko — Digital Store</title>
+<title>Kreavora — Digital Store</title>
 <style>
 :root{color-scheme:dark;--bg:#0b0d17;--panel:#131727;--panel2:#191f32;--line:#29314a;--txt:#f5f7ff;--muted:#a3abc2;--accent:#a78bfa;--accent2:#5eead4;--danger:#fb7185}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 10% -10%,#49327a55,transparent),radial-gradient(700px 400px at 100% 0%,#0f766e33,transparent),var(--bg);color:var(--txt);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -14,20 +14,20 @@ a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.
 </head>
 <body>
 <div class="wrap">
-<header class="nav"><a class="brand" href="#"><span class="mark">✦</span><span id="storeName">NAMA TOKO</span></a><div class="navright"><span class="pill">Produk digital pilihan</span><button class="btn" id="cartOpen">Keranjang <b id="cartCount">0</b></button></div></header>
+<header class="nav"><a class="brand" href="#"><span class="mark">✦</span><span id="storeName">KREAVORA</span></a><div class="navright"><span class="pill">Produk digital pilihan</span><button class="btn" id="cartOpen">Keranjang <b id="cartCount">0</b></button></div></header>
 <main>
 <section class="hero"><div><div class="eyebrow">DIGITAL PRODUCTS · CREATOR TOOLS</div><h1>Ide hebat.<br><span style="background:linear-gradient(100deg,#c4b5fd,#5eead4);color:transparent;background-clip:text">Karya lebih cepat.</span></h1><p>Temukan tools, template, prompt, dan produk digital untuk membantu pekerjaan kreatif dan bisnis online.</p><button class="btn primary" onclick="document.querySelector('#catalog').scrollIntoView({behavior:'smooth'})">Jelajahi produk ↗</button></div><div class="heroart"><div class="orb"></div><div class="arttext"><div class="eyebrow">DIGITAL STORE</div><b style="font-size:23px">Koleksi digital untuk berkembang.</b><div class="muted" style="font-size:12px;margin-top:6px">Beli sekali, akses sesuai ketentuan produk.</div></div></div></section>
 <section id="catalog"><div class="sectionhead"><div><div class="eyebrow">KATALOG</div><h2>Temukan produkmu</h2><div class="muted" style="font-size:13px">Pilih produk digital yang kamu butuhkan.</div></div><div class="tools"><input class="search" id="search" placeholder="Cari produk..."></div></div><div class="categories" id="categories"><button class="cat active" data-cat="all">Semua</button></div><div class="grid" id="products"><div class="empty">Memuat katalog produk...</div></div></section>
 <section class="trust"><div><b>⚡ Akses digital</b><span>Produk dikirim secara digital setelah pembayaran terverifikasi.</span></div><div><b>🔒 Pembayaran aman</b><span>Status pesanan diproses melalui sistem pembayaran toko.</span></div><div><b>💬 Bantuan pembeli</b><span>Informasi bantuan tersedia pada detail pesanan.</span></div></section>
 </main>
-<footer><span>© <span id="year"></span> <b id="footerName">Nama Toko</b>. Hak cipta dilindungi.</span><span>Kontak bantuan · Kebijakan · Syarat pembelian</span></footer>
+<footer><span>© <span id="year"></span> <b id="footerName">Kreavora</b>. Hak cipta dilindungi.</span><span>Kontak bantuan · Kebijakan · Syarat pembelian</span></footer>
 </div>
 <div class="overlay" id="cartModal"><div class="modal"><div class="modalhead"><h2>Keranjang belanja</h2><button class="close" data-close="cartModal">×</button></div><div id="cartLines"></div><div class="total"><span>Total</span><span id="cartTotal">Rp0</span></div><button class="btn primary" style="width:100%" id="checkoutOpen">Lanjut checkout</button><p class="muted" style="font-size:12px">Pembayaran belum diaktifkan sampai konfigurasi gateway dan verifikasi webhook selesai.</p></div></div>
 <div class="overlay" id="checkoutModal"><div class="modal"><div class="modalhead"><h2>Checkout</h2><button class="close" data-close="checkoutModal">×</button></div><div id="checkoutSummary" class="muted" style="font-size:13px"></div><form id="checkoutForm"><div class="field"><label>Nama lengkap</label><input name="name" required maxlength="100" autocomplete="name"></div><div class="field"><label>Email aktif</label><input name="email" type="email" required maxlength="160" autocomplete="email"></div><div class="field"><label>Nomor WhatsApp</label><input name="phone" required maxlength="30" autocomplete="tel"></div><div class="field"><label>Catatan (opsional)</label><textarea name="note" rows="2" maxlength="500"></textarea></div><div class="notice">Tahap ini menyiapkan pesanan. QRIS/VA dan pengiriman otomatis baru aktif setelah payment gateway serta webhook diverifikasi.</div><button class="btn primary" style="width:100%" type="submit" id="placeOrder">Buat pesanan</button></form><div id="orderResult" class="hidden"></div></div></div>
 <script>
 const SUPABASE_URL='https://pqfpdgpqvinvfooeayip.supabase.co';
 const SUPABASE_KEY='sb_publishable_Om983sM09i_5XrTx3AmLFA_10uAjO_w';
-const STORE_NAME='NAMA TOKO';
+const STORE_NAME='KREAVORA';
 const money=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);
 let products=[],cart={},activeCat='all';
 const $=s=>document.querySelector(s);
