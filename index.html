@@ -51,7 +51,7 @@ pre{margin:0;background:var(--code);border:1px solid var(--bd);border-radius:14p
 <div class="foot">Generator by <b>BBU CHANNEL</b></div></div>
 <div class="modal" id="pro" onclick="if(event.target===this)closePro()"></div>
 <script>
-const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English',ratio:'9:16',style:'Authentic UGC',platform:'TikTok',voice:'Natural female voice',music:'None',sfx:'Natural ambience',consistency:'Strict'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
+const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English',ratio:'9:16',style:'Authentic UGC',platform:'TikTok',model:'Omni Flash',voice:'Natural female voice',music:'None',sfx:'Natural ambience',consistency:'Strict'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
 const t=(e,i)=>S.lang=='id'?i:e;
 const R={},C=[];const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const v=(o,k)=>(S[o][k]||'').trim();const J=a=>a.filter(Boolean).join(', ');
@@ -295,12 +295,12 @@ const lookTxt=()=>J([v('p','colors'),v('p','type')]).replace(', ',' ')||'product
 const tplConcepts=()=>{const q=Q(),p=pn();return FMT.map((f,i)=>({i:i+1,title:`${S.lang=='id'?f[1]:f[0]} — ${p}`,hook:f[2](p,q.r),use:`${f[3]}, with the ${lookTxt()} and ${featTxt()} clearly visible`,payoff:`${cn()}: ${q.b}`,cta:q.c,film:f[4]}))};
 const pSig=()=>[pn(),JSON.stringify(S.p),JSON.stringify(S.q),cn(),lo()].join('|');
 const concepts=()=>S.cs&&S.csSig==pSig()?S.cs:tplConcepts();
-async function startConcepts(){S.csBusy=true;const sg=pSig(),q=Q();
+async function startConcepts(){S.csBusy=true;S.csErr='';const sg=pSig(),q=Q();
  try{const sample=await getSample();if(!sample)throw 0;
   const r=await sample(`You are a UGC ad strategist for TikTok, Instagram Reels and YouTube Shorts (modern American audience).\nPRODUCT: name "${pn()}", category ${cat()}, type ${v('p','type')||'n/a'}, shape ${v('p','shape')||'n/a'}, color ${v('p','colors')||'n/a'}, finish ${v('p','finish')||'n/a'}, material ${v('p','mat')||'n/a'}, branding ${v('p','brand')||'n/a'}, key feature ${v('p','feat')||'n/a'}.\nCREATOR: ${cn()} (${v('c','gender')||'any'}, ${v('c','age')||'any'}). LOCATION: ${lo()}.\nCUSTOMER PROBLEM: ${q.r}. MAIN BENEFIT: ${q.b}. SOFT CTA: ${q.c}.\nWrite exactly 10 original UGC ad concepts, each a DIFFERENT recognizable UGC format (talking-head testimonial, problem→solution, unboxing, things I wish I knew, day-in-the-life, before/after, GRWM, tutorial, honest review, storytime/POV...). Every concept must be SPECIFIC to this exact product, its real features and how it is genuinely used in this location. Never generic, never about a different product. Authentic smartphone UGC only, no cinematic moves. No on-screen text.\nReturn ONLY a JSON array of 10 objects: {"format":"","hook":"exact opening line, casual American English, 8-16 words","use":"how the product is naturally shown in use, referencing its real features","payoff":"authentic payoff moment","film":"filming style"}.`,{cache:false});
   const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length<10)throw 0;
   S.cs=a.slice(0,10).map((x,i)=>({i:i+1,title:`${x.format} — ${pn()}`,hook:x.hook,use:x.use,payoff:x.payoff,cta:q.c,film:x.film}))}
- catch(e){S.cs=null}
+ catch(e){S.cs=null;S.csErr=(e&&e.message?String(e.message):'Layanan AI tidak tersedia.').slice(0,220)}
  S.csSig=sg;S.csBusy=false;render()}
 
 /* ---------- VIDEO: 1 scene = 10 seconds ---------- */
@@ -331,10 +331,21 @@ async function startScript(){
  catch(e){S.scr=null;S.trErr=t('Auto-writing unavailable — a template script (English, 18–25 words per scene) was used.','Penulisan otomatis tidak tersedia — dipakai skrip template (Inggris, 18–25 kata per adegan).')}
  S.trSig=sg;S.trBusy=false;render()}
 function storyboardPreview(sc){return '<div class="storyboard-grid">'+sc.map((x,i)=>'<div class="scene-card"><div class="scene-thumb"><span>FRAME '+String(i+1).padStart(2,'0')+' · '+mmss(i*10)+'</span></div><b>'+t('Scene','Adegan')+' '+(i+1)+' · '+mmss(i*10)+'–'+mmss((i+1)*10)+'</b><p>'+esc(x.v)+'</p></div>').join('')+'</div><p class="note">'+t('This is a layout preview from your scene descriptions, not a generated image or video.','Ini pratinjau tata letak dari deskripsi adegan, bukan gambar atau video hasil generate.')+'</p>'}
+
+const MODEL_GUIDES={
+ 'Omni Flash':'Keep the prompt compact and explicit. Describe one continuous shot, the main subject action, camera movement, environment, lighting and audio in a clear sequence.',
+ 'Seedance 2.5':'Use a time-ordered shot description. Specify subject, action, camera movement, motion rhythm, scene continuity and audio. Preserve exact character and product identity across clips.',
+ 'Google Veo':'Describe the scene, natural physical motion, camera path, lighting, environmental sound and spoken dialogue. Avoid contradictory actions within one shot.',
+ 'Kling AI':'Prioritize the subject and action, camera movement, composition, environment, motion intensity and stable visual identity. State the intended opening and ending frame clearly.',
+ 'OpenAI Sora':'Describe a coherent scene and temporal progression, realistic interactions, camera behavior and continuity. Avoid overloading one shot with simultaneous actions.',
+ 'Runway':'Keep each clip focused on one main motion, one camera move and a clear visual style. Use concise, actionable motion language.',
+ 'Universal':'Use a model-agnostic structure: subject, action, camera, environment, lighting, timing, continuity and audio.'
+};
 function videos(){
- const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1],ratio=S.d.ratio||'9:16',style=S.d.style||'Authentic UGC',platform=S.d.platform||'TikTok',voice=S.d.voice||'Natural female voice',music=S.d.music||'None',sfx=S.d.sfx||'Natural ambience',continuity=S.d.consistency||'Strict';
+ const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1],ratio=S.d.ratio||'9:16',style=S.d.style||'Authentic UGC',platform=S.d.platform||'TikTok',model=S.d.model||'Omni Flash',modelGuide=MODEL_GUIDES[model]||MODEL_GUIDES.Universal,voice=S.d.voice||'Natural female voice',music=S.d.music||'None',sfx=S.d.sfx||'Natural ambience',continuity=S.d.consistency||'Strict';
  const sc=S.scr&&S.scr.length==N?S.scr:tplScenes(N),out=[];
- for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)})`,
+ for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)}) · ${model}`,
+ `MODEL TARGET: ${model}. MODEL-SPECIFIC PROMPT GUIDANCE: ${modelGuide}`,
  `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. ${ratio} aspect ratio, ${style} visual style for ${platform}, filming approach (${c.film}), natural lighting, slight handheld movement. One continuous 10-second shot.`,
  `NO TEXT: There is no on-screen text of any kind: no captions, subtitles, titles, overlays, stickers, emojis, graphics, watermarks or UI. The only readable text is the real printed branding on the physical product.`,
  `AUDIO: ${n} speaks the Spoken Line below in a ${voice} style, naturally paced across the full 10 seconds. Music: ${music}. Sound effects: ${sfx}. No voice-over, no narrator, no other voices.`,
@@ -383,10 +394,11 @@ lL:()=>lockBox('LOCATION LOCKED','STAGE 3 COMPLETE — Location',t('Should I gen
 k0:()=>{qFix();return `<h2>${t('Stage 4 — 10 UGC Ad Concepts','Stage 4 — 10 Konsep Iklan UGC')}</h2><p class="hint">${t('The options below match your product category','Opsi di bawah menyesuaikan kategori produkmu')}: <b>${esc(cat())}</b>. ${t('The 10 concepts are written for your exact product.','10 konsep ditulis khusus untuk produkmu.')}</p>
  ${chips('q','prob',t('Customer problem','Masalah customer'),probL())}${chips('q','benefit',t('Main benefit / honest reaction','Manfaat utama / reaksi jujur'),benL())}${chips('q','cta',t('Soft call to action','Soft CTA'),O.cta)}${nav(t('Yes, generate 10 concepts →','Ya, buat 10 konsep →'),'k1')}`},
 k1:()=>{if(S.csSig!==pSig()){if(!S.csBusy)startConcepts();return `<h2>Stage 4</h2><p class="hint">⏳ ${t('Writing 10 concepts for','Menulis 10 konsep untuk')} ${esc(pn())}…</p>`}
- return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2><p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
+ return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2>${S.csErr?`<p class="note">⚠️ ${t('AI concept generation did not complete. Showing built-in editable concepts instead. Error: ','Pembuatan konsep AI belum berhasil. Ditampilkan konsep bawaan yang tetap bisa diedit. Pesan: ')}${esc(S.csErr)}</p>`:''}<p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
 d0:()=>`<h2>${t('Stage 5 — Video Settings','Stage 5 — Pengaturan Video')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('Set duration, platform, visual style and audio before generating.','Atur durasi, platform, gaya visual, dan audio sebelum membuat prompt.')}</p>
  ${durField()}${nlField()}
  ${settingsField('platform',t('Target platform','Platform tujuan'),[['TikTok','TikTok'],['Instagram Reels','Instagram Reels'],['YouTube Shorts','YouTube Shorts'],['Facebook Reels','Facebook Reels'],['General social video','Video sosial umum']])}
+ ${settingsField('model',t('Target AI video model','Model AI video tujuan'),[['Omni Flash','Omni Flash'],['Seedance 2.5','Seedance 2.5'],['Google Veo','Google Veo'],['Kling AI','Kling AI'],['OpenAI Sora','OpenAI Sora'],['Runway','Runway'],['Universal','Universal / lainnya']])}
  ${settingsField('ratio',t('Video aspect ratio','Rasio video'),[['9:16','9:16 — Vertikal'],['16:9','16:9 — Horizontal'],['1:1','1:1 — Persegi']])}
  ${settingsField('style',t('Visual style','Gaya visual'),[['Authentic UGC','UGC autentik'],['Cinematic','Cinematic'],['Photorealistic commercial','Iklan realistis'],['Lifestyle vlog','Lifestyle vlog'],['Product demonstration','Demo produk']])}
  ${settingsField('consistency',t('Identity consistency','Konsistensi identitas'),[['Strict','Ketat'],['High','Tinggi'],['Balanced','Seimbang']])}
@@ -397,7 +409,7 @@ d0:()=>`<h2>${t('Stage 5 — Video Settings','Stage 5 — Pengaturan Video')}</h
 v0:()=>{const NL=S.d.nl||'English';
  if(S.trSig!==sig()){if(!S.trBusy)startScript();return `<h2>Stage 6</h2><p class="hint">⏳ ${t('Writing scene scripts…','Menulis skrip adegan…')}</p>`}
  const r=videos(),sc=S.scr&&S.scr.length===r.length?S.scr:tplScenes(r.length);
- return `<h2>${t('Stage 6 — Storyboard & Video Prompts','Stage 6 — Storyboard & Video Prompt')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${esc(S.d.ratio||'9:16')} · ${esc(S.d.platform||'TikTok')} · ${t('Narration','Narasi')}: ${esc(NL)}.</p>
+ return `<h2>${t('Stage 6 — Storyboard & Video Prompts','Stage 6 — Storyboard & Video Prompt')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${esc(S.d.ratio||'9:16')} · ${esc(S.d.platform||'TikTok')} · ${esc(S.d.model||'Omni Flash')} · ${t('Narration','Narasi')}: ${esc(NL)}.</p>
  ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}<div class="row"><button class="btn s" onclick="downloadAllPrompts()">${t('Download prompts TXT','Unduh prompt TXT')}</button><button class="btn s" onclick="exportProject()">${t('Export project JSON','Ekspor proyek JSON')}</button><button class="btn s" onclick="saveProject()">${t('Save project','Simpan proyek')}</button></div>
  <h3>${t('Storyboard preview','Pratinjau storyboard')}</h3>${storyboardPreview(sc)}<h3>${t('Edit scene scripts','Edit skrip adegan')}</h3>
  ${sc.map((x,i)=>`<div class="blk" style="border:1px solid var(--bd);border-radius:14px;padding:12px"><b>${t('Scene','Adegan')} ${i+1} · ${mmss(i*10)}–${mmss((i+1)*10)}</b>
@@ -411,7 +423,7 @@ v0:()=>{const NL=S.d.nl||'English';
 const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lokasi'),t('Concept','Konsep'),t('Duration','Durasi'),t('Video','Video')];
 function render(keep){
  C.length=0;const g=stageOf(S.st),y=scrollY;queueAutoSave();
- document.getElementById('tag').textContent=t('UGC ad prompts for Omni Flash · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
+ document.getElementById('tag').textContent=t('UGC ad prompts for multiple AI video models · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
  document.getElementById('bn').innerHTML=`<span>✓ <b>${t('Unlocked local version','Versi lokal terbuka')}</b> — ${t('All interface options enabled: 10 concepts, 10–60 seconds, custom fields and uploads.','Semua opsi antarmuka aktif: 10 konsep, 10–60 detik, kolom kustom dan upload.')}</span>`;
  document.getElementById('lang').innerHTML=['en','id'].map(l=>`<button class="${S.lang==l?'on':''}" onclick="S.lang='${l}';render(true)">${l.toUpperCase()}</button>`).join('');
  document.getElementById('pg').innerHTML=STG().map((n,i)=>`<div class="${i+1==g?'on':i+1<g?'dn':''}"><b></b>${i+1<g?'✓ ':''}${n}</div>`).join('');
