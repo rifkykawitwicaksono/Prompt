@@ -60,17 +60,17 @@ function go(s){S.hist.push(S.st);S.st=s;S.msg='';render();scrollTo(0,0)}
 function back(){S.st=S.hist.pop();render()}
 const nav=(label,to,extra='')=>`<div class="row">${label?`<button class="btn" onclick="${extra}go('${to}')">${label}</button>`:''}${S.hist.length?`<button class="btn g2" onclick="back()">← ${t('Back','Kembali')}</button>`:''}</div>`;
 
-/* ---------- LOCAL UNLOCKED CONFIG ---------- */
-const PRO_URL='';
-const FREE={scenes:6,concepts:10,nl:[],customOK:['c.name','c.eth','c.under','c.height','c.pers','c.expr','c.acc','p.finish','p.mat','p.feat','p.type','p.shape','p.colors','p.brand','l.location'],lockedFields:[]};
-const badge=()=>'';
+/* ---------- FREE / PRO ACCESS ---------- */
+const PRO_URL='https://lynk.id/iruel13/kw3pjdv80m9y';
+const FREE={scenes:2,concepts:3,nl:['English','Indonesian'],customOK:['c.name','c.eth','c.under','c.height','c.pers','c.expr','c.acc','p.finish','p.mat','p.feat','p.type','p.shape','p.colors','p.brand','l.location'],lockedFields:['c.eth','c.under','c.height','c.pers','c.expr','c.acc','p.finish','p.mat','p.feat']};
+const badge=()=>'<span class="lock" style="display:inline-block;margin-left:6px">PRO</span>';
 function proHTML(){return ''}
-function showPro(){return}
-function closePro(){return}
-const lockedField=label=>'';
-const lockOpt=c=>opt(`${c.i}. ${esc(c.title)}`,`<span>${t('Create this concept.','Buat konsep ini.')}</span>`,`S.concept=${c.i};go('d0')`);
-function durField(){const cur=String(S.d.dur);return `<div class="fl"><span>${t('Duration (seconds) — up to 6 scenes','Durasi (detik) — hingga 6 adegan')}</span><div class="chips">${['10','20','30','40','50','60'].map(x=>`<button class="chip ${cur==x?'on':''}" onclick="S.d.dur=${x};render(true)">${x}</button>`).join('')}</div></div>`}
-function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select></div>`}
+function showPro(){if(PRO_URL)window.open(PRO_URL,'_blank','noopener')}
+function closePro(){}
+const lockedField=label=>'<div class="fl"><span>'+label+' '+badge()+'</span><button class="btn s" type="button" onclick="showPro()">🔒 '+t('Unlock with PRO','Buka dengan PRO')+'</button></div>';
+const lockOpt=c=>c.i<=FREE.concepts?opt(c.i+'. '+esc(c.title),'<span>'+t('Create this concept.','Buat konsep ini.')+'</span>','S.concept='+c.i+';go(\'d0\')'):opt(c.i+'. 🔒 PRO — '+esc(c.title),'<span>'+t('Premium concept. Upgrade to unlock.','Konsep premium. Upgrade untuk membuka.')+'</span>','showPro()');
+function durField(){const cur=String(Math.min(+S.d.dur||20,FREE.scenes*10));S.d.dur=cur;return '<div class="fl"><span>'+t('Duration (seconds) — FREE up to 20 seconds','Durasi (detik) — GRATIS hingga 20 detik')+'</span><div class="chips">'+['10','20','30','40','50','60'].map(x=>+x<=FREE.scenes*10?'<button class="chip '+(cur==x?'on':'')+'" onclick="S.d.dur='+x+';render(true)">'+x+'</button>':'<button class="chip" onclick="showPro()">🔒 '+x+'s PRO</button>').join('')+'</div><p class="note">'+t('Upgrade to PRO for longer videos up to 60 seconds.','Upgrade PRO untuk video lebih panjang hingga 60 detik.')+'</p></div>'}
+function nlField(){const cur=FREE.nl.includes(S.d.nl)?S.d.nl:'English';S.d.nl=cur;return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~'),allowed=FREE.nl.includes(val);return `<option value="${esc(val)}" ${cur==val?'selected':''} ${allowed?'':'disabled'}>${allowed?'':'🔒 PRO — '}${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select><p class="note">${t('FREE: English and Indonesian. Other languages are PRO.','GRATIS: Inggris dan Indonesia. Bahasa lainnya khusus PRO.')}</p></div>`}
 function nlChange(val){S.d.nl=val;render(true)}
 const upsell=()=>'';
 function projectSnapshot(){return{...S,files:{c:[],p:[]},hist:[]}}
@@ -307,7 +307,7 @@ async function startConcepts(){S.csBusy=true;S.csErr='';const sg=pSig(),q=Q();
 const mmss=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 const wc=s=>s.trim().split(/\s+/).length,cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const fit=(b,fl)=>{let s=b;for(const f of fl){if(wc(s)>=18)break;if(wc(s+' '+f)<=25)s+=' '+f}return s};
-const nScenes=()=>Math.min(6,Math.max(1,Math.round((+S.d.dur||20)/10)));
+const nScenes=()=>Math.min(FREE.scenes,6,Math.max(1,Math.round((+S.d.dur||20)/10)));
 function tplScenes(N){
  const c=concepts()[(S.concept||1)-1],q=Q(),n=cn(),p=pn(),loc=lo(),ft=featTxt();
  const B={hook:{v:`${n} holds ${p} up to the camera in the ${loc}, looking straight into the lens with a relatable, urgent expression`,s:fit(c.hook,['Stick with me for ten seconds and I will show you why.','Trust me on this one.']),d:'Fast-paced, direct, conversational'},
@@ -394,7 +394,7 @@ lL:()=>lockBox('LOCATION LOCKED','STAGE 3 COMPLETE — Location',t('Should I gen
 k0:()=>{qFix();return `<h2>${t('Stage 4 — 10 UGC Ad Concepts','Stage 4 — 10 Konsep Iklan UGC')}</h2><p class="hint">${t('The options below match your product category','Opsi di bawah menyesuaikan kategori produkmu')}: <b>${esc(cat())}</b>. ${t('The 10 concepts are written for your exact product.','10 konsep ditulis khusus untuk produkmu.')}</p>
  ${chips('q','prob',t('Customer problem','Masalah customer'),probL())}${chips('q','benefit',t('Main benefit / honest reaction','Manfaat utama / reaksi jujur'),benL())}${chips('q','cta',t('Soft call to action','Soft CTA'),O.cta)}${nav(t('Yes, generate 10 concepts →','Ya, buat 10 konsep →'),'k1')}`},
 k1:()=>{if(S.csSig!==pSig()){if(!S.csBusy)startConcepts();return `<h2>Stage 4</h2><p class="hint">⏳ ${t('Writing 10 concepts for','Menulis 10 konsep untuk')} ${esc(pn())}…</p>`}
- return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2>${S.csErr?`<p class="note">⚠️ ${t('AI concept generation did not complete. Showing built-in editable concepts instead. Error: ','Pembuatan konsep AI belum berhasil. Ditampilkan konsep bawaan yang tetap bisa diedit. Pesan: ')}${esc(S.csErr)}</p>`:''}<p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
+ return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2>${S.csErr?`<p class="note">⚠️ ${t('AI concept generation did not complete. Showing built-in editable concepts instead. Error: ','Pembuatan konsep AI belum berhasil. Ditampilkan konsep bawaan yang tetap bisa diedit. Pesan: ')}${esc(S.csErr)}</p>`:''}<p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>c.i<=FREE.concepts?opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`):opt(`${c.i}. 🔒 PRO — ${esc(c.title)}`,`<span>${t('Premium concept. Upgrade to unlock.','Konsep premium. Upgrade untuk membuka.')}</span>`,'showPro()')).join('')}${nav('','k0')}`},
 d0:()=>`<h2>${t('Stage 5 — Video Settings','Stage 5 — Pengaturan Video')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('Set duration, platform, visual style and audio before generating.','Atur durasi, platform, gaya visual, dan audio sebelum membuat prompt.')}</p>
  ${durField()}${nlField()}
  ${settingsField('platform',t('Target platform','Platform tujuan'),[['TikTok','TikTok'],['Instagram Reels','Instagram Reels'],['YouTube Shorts','YouTube Shorts'],['Facebook Reels','Facebook Reels'],['General social video','Video sosial umum']])}
@@ -424,7 +424,7 @@ const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lok
 function render(keep){
  C.length=0;const g=stageOf(S.st),y=scrollY;queueAutoSave();
  document.getElementById('tag').textContent=t('UGC ad prompts for multiple AI video models · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
- document.getElementById('bn').innerHTML=`<span>✓ <b>${t('Unlocked local version','Versi lokal terbuka')}</b> — ${t('All interface options enabled: 10 concepts, 10–60 seconds, custom fields and uploads.','Semua opsi antarmuka aktif: 10 konsep, 10–60 detik, kolom kustom dan upload.')}</span>`;
+ document.getElementById('bn').innerHTML=`<span>✓ <b>${t('FREE version','Versi GRATIS')}</b> — ${t('3 concepts, up to 20 seconds and selected customization. Upgrade to PRO for all features.','3 konsep, durasi hingga 20 detik dan kustomisasi terbatas. Upgrade PRO untuk semua fitur.')}</span>`;
  document.getElementById('lang').innerHTML=['en','id'].map(l=>`<button class="${S.lang==l?'on':''}" onclick="S.lang='${l}';render(true)">${l.toUpperCase()}</button>`).join('');
  document.getElementById('pg').innerHTML=STG().map((n,i)=>`<div class="${i+1==g?'on':i+1<g?'dn':''}"><b></b>${i+1<g?'✓ ':''}${n}</div>`).join('');
  document.getElementById('panel').innerHTML=TT[S.st]();
