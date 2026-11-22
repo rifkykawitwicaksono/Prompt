@@ -34,7 +34,7 @@ select{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:12p
 pre{margin:0;background:var(--code);border:1px solid var(--bd);border-radius:14px;padding:14px;white-space:pre-wrap;word-break:break-word;font:12.5px/1.55 ui-monospace,Menlo,monospace;user-select:text}
 .lock{color:var(--ok);font-weight:700;margin-top:12px}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .th{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.th img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--bd)}
-.note{font-size:13px;color:var(--mu);margin-top:8px}.storyboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:12px 0}.scene-card{border:1px solid var(--bd);border-radius:13px;padding:9px;background:var(--code);min-width:0}.scene-thumb{height:92px;border-radius:9px;position:relative;overflow:hidden;background:linear-gradient(135deg,#29214f,#7c5cff 55%,#ff4d8d)}.scene-thumb:before{content:'';position:absolute;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.22);left:14px;top:12px}.scene-thumb:after{content:'';position:absolute;width:48px;height:62px;border-radius:10px 10px 4px 4px;background:rgba(255,255,255,.28);right:18px;bottom:-9px}.scene-thumb span{position:absolute;z-index:1;left:9px;bottom:8px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 1px 4px #000}.scene-card b{display:block;font-size:12px;margin-top:7px}.scene-card p{font-size:11px;color:var(--mu);margin:3px 0 0;line-height:1.35;max-height:44px;overflow:hidden}
+.note{font-size:13px;color:var(--mu);margin-top:8px}
 .foot{text-align:center;margin-top:22px;font-size:12px;color:var(--mu)}.foot b{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.05em}
 .free{font-size:10px;vertical-align:middle;background:var(--g);color:#fff;padding:2px 8px;border-radius:999px;letter-spacing:.08em;margin-left:6px}
 .up{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--g);color:#fff;text-decoration:none;font-weight:800;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:0 6px 18px rgba(124,92,255,.35)}
@@ -46,12 +46,12 @@ pre{margin:0;background:var(--code);border:1px solid var(--bd);border-radius:14p
 .mbox{background:var(--bg);border:1px solid var(--bd);border-radius:20px;padding:22px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4);max-height:90%;overflow:auto}
 .mbox h2{margin:0 0 6px}.mbox ul{padding-left:18px;margin:10px 0 14px;color:var(--mu);font-size:13px}.mbox li{margin:3px 0}.mbox .up{display:flex;width:100%;padding:13px;border-radius:12px}
 </style></head><body><div class="w">
-<div class="top"><div class="logo"><i>🎬</i><div><h1>ADS PROMPT GENERATOR <span class="free">UNLOCKED</span></h1><p class="tag" id="tag"></p></div></div><div class="lang" id="lang"></div></div>
+<div class="top"><div class="logo"><i>🎬</i><div><h1>ADS PROMPT GENERATOR <span class="free">PRO</span></h1><p class="tag" id="tag"></p></div></div><div class="lang" id="lang"></div></div>
 <div class="banner" id="bn"></div><div class="pg" id="pg"></div><div class="panel" id="panel"></div>
 <div class="foot">Generator by <b>BBU CHANNEL</b></div></div>
 <div class="modal" id="pro" onclick="if(event.target===this)closePro()"></div>
 <script>
-const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English',ratio:'9:16',style:'Authentic UGC',platform:'TikTok',model:'Omni Flash',voice:'Natural female voice',music:'None',sfx:'Natural ambience',consistency:'Strict'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
+const S={lang:'id',st:'c0',hist:[],cm:'',pm:'',c:{},p:{cat:'Beauty'},cu:{},q:{},d:{dur:20,nl:'English'},files:{c:[],p:[]},msg:'',loc:null,lcn:'',lcd:'',concept:1,tr:null,trSig:'',trBusy:false,trErr:''};
 const t=(e,i)=>S.lang=='id'?i:e;
 const R={},C=[];const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const v=(o,k)=>(S[o][k]||'').trim();const J=a=>a.filter(Boolean).join(', ');
@@ -60,35 +60,33 @@ function go(s){S.hist.push(S.st);S.st=s;S.msg='';render();scrollTo(0,0)}
 function back(){S.st=S.hist.pop();render()}
 const nav=(label,to,extra='')=>`<div class="row">${label?`<button class="btn" onclick="${extra}go('${to}')">${label}</button>`:''}${S.hist.length?`<button class="btn g2" onclick="back()">← ${t('Back','Kembali')}</button>`:''}</div>`;
 
-/* ---------- FREE / PRO ACCESS ---------- */
+/* ---------- PRO VERSION: all generator controls unlocked ---------- */
 const PRO_URL='';
-const FREE={scenes:6,concepts:10,nl:[],customOK:[],lockedFields:[]};
-const badge=()=>'<span class="lock" style="display:inline-block;margin-left:6px">PRO</span>';
-function proHTML(){return ''}
-function showPro(){if(PRO_URL)window.open(PRO_URL,'_blank','noopener')}
-function closePro(){}
-const lockedField=label=>'<div class="fl"><span>'+label+' '+badge()+'</span><button class="btn s" type="button" onclick="showPro()">🔒 '+t('Unlock with PRO','Buka dengan PRO')+'</button></div>';
-const lockOpt=c=>c.i<=FREE.concepts?opt(c.i+'. '+esc(c.title),'<span>'+t('Create this concept.','Buat konsep ini.')+'</span>','S.concept='+c.i+';go(\'d0\')'):opt(c.i+'. 🔒 PRO — '+esc(c.title),'<span>'+t('Premium concept. Upgrade to unlock.','Konsep premium. Upgrade untuk membuka.')+'</span>','showPro()');
-function durField(){const cur=String(Math.min(60,Math.max(10,+S.d.dur||20)));S.d.dur=cur;return '<div class="fl"><span>'+t('Video duration (seconds)','Durasi video (detik)')+'</span><div class="chips">'+['10','20','30','40','50','60'].map(x=>'<button class="chip '+(cur==x?'on':'')+'" onclick="S.d.dur='+x+';render(true)">'+x+'</button>').join('')+'</div><p class="note">'+t('PRO: choose a duration from 10 to 60 seconds.','PRO: pilih durasi video dari 10 hingga 60 detik.')+'</p></div>'}
-function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select><p class="note">${t('All available narration languages are unlocked in PRO.','Semua pilihan bahasa narasi terbuka di PRO.')}</p></div>`}
+const FREE={scenes:6,concepts:10,nl:[],customOK:['*'],lockedFields:[]};
+const badge=()=>'';
+function proHTML(f){return `<div class="mbox"><h2>⭐ ${t('Unlock with PRO','Buka dengan PRO')}</h2>${f?`<p class="hint" style="margin:0"><b>${esc(f)}</b> ${t('is a PRO feature.','adalah fitur PRO.')}</p>`:''}<ul>
+ <li>${t('Upload character reference + AI analysis','Upload referensi karakter + analisa AI')}</li>
+ <li>${t('Full character settings (ethnicity, undertone, height, personality, expression, accessories)','Pengaturan karakter lengkap (etnis, undertone, tinggi, kepribadian, ekspresi, aksesoris)')}</li>
+ <li>${t('Create a product from scratch (option B)','Buat produk dari nol (opsi B)')}</li>
+ <li>${t('Full product settings (finish, material, key feature)','Pengaturan produk lengkap (finishing, material, fitur utama)')}</li>
+ <li>${t('Custom location & custom input ("Custom…")','Lokasi custom & input sendiri ("Lainnya…")')}</li>
+ <li>${t('All 10 UGC ad concepts','Semua 10 konsep iklan UGC')}</li>
+ <li>${t('Videos up to 60 seconds (6 scenes)','Video hingga 60 detik (6 adegan)')}</li>
+ <li>${t('All narration languages','Semua bahasa narasi')}</li></ul>
+ <a class="up" href="${PRO_URL}" target="_blank" rel="noopener">⭐ ${t('Upgrade to PRO now','Upgrade ke PRO sekarang')}</a>
+ <div style="text-align:center"><button class="btn g2" style="margin-top:10px" onclick="closePro()">${t('Maybe later','Nanti saja')}</button></div></div>`}
+function showPro(f){const m=document.getElementById('pro');m.innerHTML=proHTML(f);m.classList.add('on')}
+function closePro(){document.getElementById('pro').classList.remove('on')}
+const lockedField=label=>`<div class="fl lkf" data-f="${esc(label)}" onclick="showPro(this.dataset.f)"><span>${label} ${badge()}</span><div class="fake">🔒 ${t('Locked — available in PRO','Terkunci — tersedia di PRO')}</div></div>`;
+const lockOpt=c=>`<div class="opt locked" onclick="showPro(t('All 10 concepts','Semua 10 konsep'))"><b>🔒 ${c.i}. ${esc(c.title)} ${badge()}</b><span>${t('Unlock all 10 concepts in PRO.','Buka semua 10 konsep di versi PRO.')}</span></div>`;
+function durField(){const cur=String(S.d.dur);return `<div class="fl"><span>${t('Video duration (seconds) — PRO up to 60 seconds / 6 scenes','Durasi video (detik) — PRO hingga 60 detik / 6 adegan')}</span><div class="chips">${['10','20','30','40','50','60'].map(x=>`<button class="chip ${cur==x?'on':''}" onclick="S.d.dur=${x};render(true)">${x}</button>`).join('')}</div></div>`}
+function nlField(){const cur=S.d.nl||'English';return `<div class="fl"><span>${t('Narration language (spoken lines & on-screen text)','Bahasa narasi (ucapan & teks di layar)')}</span><select onchange="nlChange(this.value)">${O.nl.map(x=>{const[val,idl]=x.split('~');return `<option value="${esc(val)}" ${cur==val?'selected':''}>${esc(S.lang=='id'&&idl?idl:val)}</option>`}).join('')}</select></div>`}
 function nlChange(val){S.d.nl=val;render(true)}
-const upsell=()=>'';
-function projectSnapshot(){return{...S,files:{c:[],p:[]},hist:[]}}
-function writeLocalProject(){try{localStorage.setItem('adsPromptGeneratorProProject',JSON.stringify({version:1,savedAt:new Date().toISOString(),S:projectSnapshot()}));return true}catch(e){return false}}
-let autoSaveTimer=null;function queueAutoSave(){clearTimeout(autoSaveTimer);autoSaveTimer=setTimeout(()=>{const ok=writeLocalProject();const el=document.getElementById('autosaveStatus');if(el)el.textContent=ok?t('Auto-saved on this device','Tersimpan otomatis di perangkat ini'):t('Auto-save unavailable — export JSON','Simpan otomatis gagal — ekspor JSON')},500)}
-function saveProject(){if(writeLocalProject())alert(t('Project saved in this browser.','Proyek tersimpan di browser ini.'));else alert(t('Could not save here. Export the project instead.','Tidak bisa menyimpan di browser. Silakan ekspor proyek.'))}
-function openSavedProject(){try{const raw=localStorage.getItem('adsPromptGeneratorProject');if(!raw){alert(t('No saved project found.','Belum ada proyek tersimpan.'));return}const data=JSON.parse(raw);if(!data.S)throw 0;Object.assign(S,data.S);S.files={c:[],p:[]};S.hist=[];render();alert(t('Project opened. Reselect uploaded images if needed.','Proyek dibuka. Pilih ulang gambar upload jika diperlukan.'))}catch(e){alert(t('Could not open saved project.','Proyek tersimpan tidak bisa dibuka.'))}}
-function downloadText(name,content,type='text/plain'){const blob=new Blob([content],{type:type+';charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function exportProject(){const data={app:'ADS PROMPT GENERATOR',version:1,exportedAt:new Date().toISOString(),project:{...S,files:{c:[],p:[]},hist:[]}};downloadText('ads-prompt-project.json',JSON.stringify(data,null,2),'application/json')}
-function importProject(input){const file=input.files&&input.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result),p=data.project||data;if(!p||!p.c||!p.p||!p.d)throw 0;Object.assign(S,p);S.files={c:[],p:[]};S.hist=[];render();alert(t('Project imported. Reselect uploaded images if needed.','Proyek diimpor. Pilih ulang gambar upload jika diperlukan.'))}catch(e){alert(t('Invalid project file.','File proyek tidak valid.'))}};reader.readAsText(file);input.value=''}
-function downloadAllPrompts(){const out=videos().join('\n\n------------------------------\n\n');downloadText('ads-video-prompts.txt',out)}
-function settingsField(key,label,options){const cur=S.d[key]||options[0][0];return '<div class="fl"><span>'+label+'</span><select onchange="S.d.'+key+'=this.value;render(true)">'+options.map(x=>'<option value="'+esc(x[0])+'" '+(cur===x[0]?'selected':'')+'>'+esc(x[1])+'</option>').join('')+'</select></div>'}
-function projectTools(){return '<div class="blk"><h3>'+t('Project tools','Peralatan proyek')+'</h3><p class="note" id="autosaveStatus">'+t('Auto-save is enabled on this browser.','Simpan otomatis aktif di browser ini.')+'</p><div class="row"><button class="btn s" onclick="saveProject()">'+t('Save project','Simpan proyek')+'</button><button class="btn s" onclick="openSavedProject()">'+t('Open saved','Buka tersimpan')+'</button><button class="btn s" onclick="exportProject()">'+t('Export JSON','Ekspor JSON')+'</button><label class="btn s" style="cursor:pointer">'+t('Import JSON','Impor JSON')+'<input type="file" accept="application/json,.json" onchange="importProject(this)" style="display:none"></label></div><p class="note">'+t('Browser save is local to this device. Export JSON to move the project. Uploaded image files are not embedded.','Simpan browser hanya berlaku di perangkat ini. Ekspor JSON untuk memindahkan proyek. File gambar upload tidak ikut disimpan.')+'</p></div>'}
-
+const upsell=()=>`<div class="banner" style="margin-top:14px;flex-direction:column;align-items:flex-start"><b>⭐ ${t('Want longer videos & full control?','Mau video lebih panjang & kontrol penuh?')}</b><span>${t('PRO unlocks up to 60s (6 scenes), all 10 concepts, character/product upload with AI analysis, full settings and more.','PRO membuka durasi hingga 60 dtk (6 adegan), 10 konsep lengkap, upload karakter/produk dengan analisa AI, pengaturan lengkap, dan lainnya.')}</span><a class="up" href="${PRO_URL}" target="_blank" rel="noopener">⭐ ${t('Upgrade to PRO','Upgrade ke PRO')}</a></div>`;
 
 /* ---------- OPTION CHIPS ---------- */
 function chips(o,k,label,opts,multi){
-
+ 
  if(multi)return chipsOld(o,k,label,opts,multi);
  const key=o+'.'+k;R[key]=opts;const cur=S[o][k]||'';const vals=opts.map(x=>x.split('~')[0]);
  const cust=S.cu[key]||(cur&&!vals.includes(cur));
@@ -107,8 +105,8 @@ function pickChip(key,i,multi){const[o,k]=key.split('.');const val=R[key][i].spl
  if(multi){let a=(S[o][k]||'').split(', ').filter(Boolean);a=a.includes(val)?a.filter(x=>x!=val):[...a,val].slice(-3);S[o][k]=a.join(', ')}else S[o][k]=S[o][k]==val?'':val;render(true)}
 function pickCustom(key){const[o,k]=key.split('.');S.cu[key]=true;S[o][k]='';render(true)}
 const txt=(o,k,label,ph)=>`<div class="fl"><span>${label}</span><input type="text" data-o="${o}" data-k="${k}" value="${esc(S[o][k]||'')}" placeholder="${ph}"></div>`;
-document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value;else if(d.scene!==undefined&&d.field){const i=+d.scene;if(!S.scr)S.scr=tplScenes(nScenes());if(S.scr[i])S.scr[i][d.field]=e.target.value;S.trSig=sig()}queueAutoSave()});
-document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){const incoming=[...e.target.files],remaining=Math.max(0,4-S.files[d.up].length);S.files[d.up]=[...S.files[d.up],...incoming.slice(0,remaining)];S.msg=incoming.length>remaining?t('Maximum 4 images per analysis. Extra images were not added.','Maksimal 4 gambar per analisis. Gambar selebihnya tidak ditambahkan.'):'';e.target.value='';render(true)}queueAutoSave()});
+document.addEventListener('input',e=>{const d=e.target.dataset;if(d.o)S[d.o][d.k]=e.target.value;else if(d.s)S[d.s]=e.target.value});
+document.addEventListener('change',e=>{const d=e.target.dataset;if(d.up){S.files[d.up]=[...S.files[d.up],...e.target.files].slice(0,d.up=='c'?10:4);render(true)}});
 
 /* ---------- COPY (works in iframes) ---------- */
 const blk=(title,text)=>{C.push(text);return `<div class="blk"><div class="bh"><span>${title}</span><button class="btn s" onclick="cp(${C.length-1},this)">${t('Copy','Salin')}</button></div><pre>${esc(text)}</pre></div>`};
@@ -119,104 +117,34 @@ function cp(i,b){const x=C[i];let ok=false;
  if(ok)good();else if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(x).then(good,manual);else manual()}
 const opt=(a,b,fn)=>`<div class="opt" onclick="${fn}"><b>${a}</b><span>${b}</span></div>`;
 
-/* ---------- CLAUDE CONNECTOR: supported Claude runtime only; never expose provider API keys in this public frontend ---------- */
+/* ---------- CLAUDE CONNECTOR: published runtime OR direct Anthropic API (works when this file is uploaded to Claude as an artifact) ---------- */
 function toB64(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const m=1024,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',.85).split(',')[1])};im.onerror=()=>rej(new Error('image'));im.src=u})}
-const SUPABASE_URL='https://pqfpdgpqvinvfooeayip.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_Om983sM09i_5XrTx3AmLFA_10uAjO_w';
-async function imageToGeminiPart(file){
- const bitmap=await createImageBitmap(file);
- const scale=Math.min(1,1280/Math.max(bitmap.width,bitmap.height));
- const canvas=document.createElement('canvas');
- canvas.width=Math.max(1,Math.round(bitmap.width*scale));
- canvas.height=Math.max(1,Math.round(bitmap.height*scale));
- canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
- bitmap.close();
- const blob=await new Promise((resolve,reject)=>canvas.toBlob(x=>x?resolve(x):reject(new Error('Gagal memproses gambar.')),'image/jpeg',.82));
- const dataUrl=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error('Gagal membaca gambar.'));reader.readAsDataURL(blob)});
- return {mimeType:'image/jpeg',data:String(dataUrl).split(',')[1]};
-}
+async function directAsk(prompt,o={}){
+ const content=[];
+ for(const f of (o.images||[]))content.push({type:'image',source:{type:'base64',media_type:'image/jpeg',data:await toB64(f)}});
+ content.push({type:'text',text:prompt});
+ const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content}]})});
+ const d=await res.json();if(!res.ok||d.error)throw new Error((d.error&&d.error.message)||('HTTP '+res.status));
+ return{text:(d.content||[]).map(i=>i.type==='text'?i.text:'').join('')}}
 async function getSample(){
- const f=async(prompt,o={})=>{
-  const images=Array.isArray(o.images)?await Promise.all(o.images.map(imageToGeminiPart)):[];
-  const response=await fetch(SUPABASE_URL+'/functions/v1/ai-gateway',{
-   method:'POST',
-   headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY,'Authorization':'Bearer '+SUPABASE_PUBLISHABLE_KEY},
-   body:JSON.stringify({prompt,images})
-  });
-  const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(data.error||('Permintaan AI gagal ('+response.status+').'));
-  if(!data.text)throw new Error('AI tidak mengembalikan hasil.');
-  return {text:data.text};
- };
- f.limits=async()=>({images:true});
- return f;
-}
+ let rt=null;try{rt=window.claude&&claude.use?await claude.use('sample'):null}catch(e){}
+ const f=async(prompt,o={})=>{if(rt){try{return await rt(prompt,o)}catch(e){}}return directAsk(prompt,o)};
+ f.limits=async()=>{if(rt){try{return await rt.limits()}catch(e){}}return{images:true}};
+ return f}
 
 /* ---------- UPLOAD + ANALYZE ---------- */
 function uploader(k,label){const f=S.files[k];
  return `<div class="fl"><span>${label}</span><input type="file" accept="image/*" multiple data-up="${k}"></div><div class="th">${f.map(x=>`<img src="${URL.createObjectURL(x)}">`).join('')}</div>
- ${k==='c'&&f.length?`<button class="btn" id="an" onclick="analyze('c')">🔍 ${t('Analyze character','Analisa karakter')}</button>`:''}<div class="note" id="am">${k==='c'?esc(S.msg):''}</div>`}
-function extractAnalysisObject(raw){
- const text=String(raw||'').replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
- const first=text.indexOf('{');
- if(first<0)throw new Error('AI tidak mengembalikan data produk terstruktur. Coba foto yang lebih jelas.');
- let depth=0,inString=false,escaped=false;
- for(let i=first;i<text.length;i++){
-  const ch=text[i];
-  if(inString){if(escaped)escaped=false;else if(ch==='\\')escaped=true;else if(ch==='"')inString=false;continue}
-  if(ch==='"'){inString=true;continue}
-  if(ch==='{')depth++;
-  if(ch==='}'&&--depth===0)return JSON.parse(text.slice(first,i+1));
- }
- throw new Error('Hasil analisis tidak lengkap. Coba analisis lagi.');
-}
-async function analyze(k){if(k!=='c')return;const m=document.getElementById('am'),b=document.getElementById('an');
- try{
-  if(!S.files[k]||!S.files[k].length)throw new Error('Pilih gambar terlebih dahulu.');
-  if(S.files[k].length>4)throw new Error('Maksimal 4 gambar untuk satu kali analisis.');
-  const sample=await getSample();
-  if(!sample)throw new Error('Layanan analisis AI tidak tersedia.');
-  const lim=await sample.limits();if(!lim.images)throw new Error('Analisis gambar tidak tersedia.');
-  if(b)b.disabled=true;
-  m.textContent=k==='p'?t('Inspecting product details…','Memeriksa detail produk…'):t('Analyzing images…','Menganalisis gambar…');
-  let prompt;
-  if(k==='p'){
-   const productName=v('p','name')||'not provided';
-   const category=v('p','cat')||'not provided';
-   prompt=`You are a meticulous e-commerce product visual inspector. Analyze the attached product photo(s) carefully.
-USER-PROVIDED CONTEXT (use only as clues, never as proof): product name: "${productName}"; category: "${category}".
-TASK: inspect the actual pixels and describe the product that is visibly present. If several photos show the same item, combine consistent evidence; do not assume unseen details or invent specifications.
-Return exactly one valid JSON object with these seven keys, each value a concise English string:
-"type": identify the visible product type as specifically as the photo supports (not merely its broad category).
-"shape": describe physical form, silhouette, proportions, parts and visible construction.
-"colors": list the dominant body color first, then secondary/accent colors; distinguish the product from its background.
-"finish": choose the closest visible surface finish: Matte, Glossy, Metallic, Transparent, Textured, or Mixed; explain briefly if useful.
-"mat": describe material only when visually supportable (e.g. clear glass, brushed metal, woven fabric); if uncertain say "Material not identifiable from image".
-"brand": transcribe a logo or brand name only if legible; otherwise say "No clearly readable branding". Describe visible logo placement only when actually visible.
-"feat": list distinctive visible parts, buttons, caps, handles, ports, labels, patterns or included components. Do not claim performance or hidden functions.
-QUALITY RULES: be concrete and product-specific; avoid generic filler such as "modern design" or "high quality". Never infer exact dimensions, ingredients, model number, capacity, safety, performance, or internal material from appearance alone. Do not mistake packaging/background/props for the product. If the photo is blurry, obstructed, distant or cropped, state that limitation in the relevant value. Do not make up missing information. Return JSON only, no markdown and no extra commentary.`;
-  }else{
-   const keys='gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)';
-   prompt=`Analyze the attached person (avatar / model reference) image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`;
-  }
-  const r=await sample(prompt,{images:S.files[k],cache:false});
-  const parsed=extractAnalysisObject(r.text);
-  const required=k==='p'?['type','shape','colors','finish','mat','brand','feat']:['gender','age','skin','eyes','hairc','hair','body','outfit','acc','feat'];
-  const clean={};
-  for(const key of required){
-   const value=parsed[key];
-   if(typeof value==='string'&&value.trim())clean[key]=value.trim().slice(0,240);
-  }
-  if(required.filter(key=>clean[key]).length<Math.ceil(required.length*0.65))throw new Error('Hasil AI belum cukup lengkap. Ambil foto produk yang lebih dekat, terang, dan tidak terpotong.');
-  Object.assign(S[k],clean);
-  S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisis selesai — periksa dan sesuaikan hasil di bawah.');
-  render(true);
- }catch(e){
-  const detail=e&&e.message?e.message:'Kesalahan tidak diketahui';
-  if(m)m.textContent=t('Analysis failed: ','Analisis gagal: ')+detail;
-  if(b)b.disabled=false;
- }
-}
+ ${f.length?`<button class="btn" id="an" onclick="analyze('${k}')">🔍 ${k=='c'?t('Analyze character','Analisa karakter'):t('Analyze product','Analisa produk')}</button>`:''}<div class="note" id="am">${esc(S.msg)}</div>`}
+async function analyze(k){const m=document.getElementById('am'),b=document.getElementById('an');
+ try{const sample=await getSample();
+  if(!sample){m.textContent=t('Auto-analysis unavailable here. Please pick the options below manually.','Analisa otomatis tidak tersedia di sini. Pilih opsi di bawah secara manual.');return}
+  const lim=await sample.limits();if(!lim.images){m.textContent=t('Image analysis unavailable. Pick options manually.','Analisa gambar tidak tersedia. Pilih opsi manual.');return}
+  b.disabled=true;m.textContent=t('Analyzing images…','Menganalisa gambar…');
+  const keys=k=='c'?'gender (Female/Male/Non-binary), age (one of 18–24, 25–34, 35–44, 45–54, 55+), skin (skin tone), eyes (eye color), hairc (hair color), hair (hairstyle), body (Slim/Average/Athletic/Curvy/Plus-size), outfit, acc (accessories or None), feat (distinguishing features)':'type, shape, colors, finish (Matte/Glossy/Metallic), mat (materials), brand (logo and branding placement), feat (buttons, controls, details)';
+  const r=await sample(`Analyze the attached ${k=='c'?'person (avatar / model reference)':'product'} image(s). Describe ONLY what is visible, never invent. Return ONLY a JSON object with these string keys: ${keys}. Short English phrases.`,{images:S.files[k],cache:false});
+  Object.assign(S[k],JSON.parse((r.text.match(/\{[\s\S]*\}/)||['{}'])[0]));S.msg=t('✅ Analysis done — review and adjust the options below.','✅ Analisa selesai — cek dan ubah opsi di bawah bila perlu.');render(true);
+ }catch(e){m.textContent=t('Analysis failed. Please pick options manually.','Analisa gagal. Pilih opsi secara manual.');if(b)b.disabled=false}}
 
 /* ---------- OPTION LISTS (value~Indonesian label) ---------- */
 const O={
@@ -259,7 +187,7 @@ const LOCS=[
  {n:'Coffee shop',id:'Kafe',c:'food tech fashion',w:'casual everyday-outing vibe',wi:'suasana nongkrong santai',d:'small wooden table, window seat, ceramic cup, menu board, plants (empty of people)',p:'brown, cream, black',l:'window daylight plus warm pendant lights',t:'morning'},
  {n:'Park',id:'Taman',c:'fitness fashion food',w:'fresh outdoor, on-the-go feeling',wi:'suasana outdoor yang segar',d:'wooden bench, tree-lined path, grass, backpack on the bench',p:'greens, sky blue, earthy brown',l:'natural open daylight',t:'late afternoon'}];
 const sug=()=>LOCS.map((l,i)=>({...l,s:l.c.split(' ').includes((S.p.cat||'').toLowerCase())?0:1,i})).sort((a,b)=>a.s-b.s||a.i-b.i).slice(0,5);
-function pickLoc(i){if(i<0){go('lC');return}S.loc=sug()[i];go('lS')}
+function pickLoc(i){if(i<0){const n=prompt(t('Name your custom location','Beri nama lokasi sendiri'),'My custom location');if(!n)return;const d=prompt(t('Describe the layout, objects and surroundings','Jelaskan tata letak, benda, dan lingkungan'),'A realistic lived-in everyday space');S.loc={n:n.trim()||'Custom location',d:d||'lived-in everyday space',p:'natural, realistic tones',l:'natural daylight',t:'daytime'};}else{S.loc=sug()[i]}go('lS')}
 const lo=()=>S.loc?S.loc.n.toLowerCase():'home';
 
 /* ---------- CONCEPTS ---------- */
@@ -295,12 +223,12 @@ const lookTxt=()=>J([v('p','colors'),v('p','type')]).replace(', ',' ')||'product
 const tplConcepts=()=>{const q=Q(),p=pn();return FMT.map((f,i)=>({i:i+1,title:`${S.lang=='id'?f[1]:f[0]} — ${p}`,hook:f[2](p,q.r),use:`${f[3]}, with the ${lookTxt()} and ${featTxt()} clearly visible`,payoff:`${cn()}: ${q.b}`,cta:q.c,film:f[4]}))};
 const pSig=()=>[pn(),JSON.stringify(S.p),JSON.stringify(S.q),cn(),lo()].join('|');
 const concepts=()=>S.cs&&S.csSig==pSig()?S.cs:tplConcepts();
-async function startConcepts(){S.csBusy=true;S.csErr='';const sg=pSig(),q=Q();
+async function startConcepts(){S.csBusy=true;const sg=pSig(),q=Q();
  try{const sample=await getSample();if(!sample)throw 0;
   const r=await sample(`You are a UGC ad strategist for TikTok, Instagram Reels and YouTube Shorts (modern American audience).\nPRODUCT: name "${pn()}", category ${cat()}, type ${v('p','type')||'n/a'}, shape ${v('p','shape')||'n/a'}, color ${v('p','colors')||'n/a'}, finish ${v('p','finish')||'n/a'}, material ${v('p','mat')||'n/a'}, branding ${v('p','brand')||'n/a'}, key feature ${v('p','feat')||'n/a'}.\nCREATOR: ${cn()} (${v('c','gender')||'any'}, ${v('c','age')||'any'}). LOCATION: ${lo()}.\nCUSTOMER PROBLEM: ${q.r}. MAIN BENEFIT: ${q.b}. SOFT CTA: ${q.c}.\nWrite exactly 10 original UGC ad concepts, each a DIFFERENT recognizable UGC format (talking-head testimonial, problem→solution, unboxing, things I wish I knew, day-in-the-life, before/after, GRWM, tutorial, honest review, storytime/POV...). Every concept must be SPECIFIC to this exact product, its real features and how it is genuinely used in this location. Never generic, never about a different product. Authentic smartphone UGC only, no cinematic moves. No on-screen text.\nReturn ONLY a JSON array of 10 objects: {"format":"","hook":"exact opening line, casual American English, 8-16 words","use":"how the product is naturally shown in use, referencing its real features","payoff":"authentic payoff moment","film":"filming style"}.`,{cache:false});
   const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length<10)throw 0;
   S.cs=a.slice(0,10).map((x,i)=>({i:i+1,title:`${x.format} — ${pn()}`,hook:x.hook,use:x.use,payoff:x.payoff,cta:q.c,film:x.film}))}
- catch(e){S.cs=null;S.csErr=(e&&e.message?String(e.message):'Layanan AI tidak tersedia.').slice(0,220)}
+ catch(e){S.cs=null}
  S.csSig=sg;S.csBusy=false;render()}
 
 /* ---------- VIDEO: 1 scene = 10 seconds ---------- */
@@ -330,38 +258,26 @@ async function startScript(){
   const a=JSON.parse(r.text.match(/\[[\s\S]*\]/)[0]);if(a.length!=N)throw 0;S.scr=a.map(x=>({v:String(x.visual).replace(/\.$/,''),s:x.spoken,d:String(x.delivery).replace(/\.$/,'')}))}
  catch(e){S.scr=null;S.trErr=t('Auto-writing unavailable — a template script (English, 18–25 words per scene) was used.','Penulisan otomatis tidak tersedia — dipakai skrip template (Inggris, 18–25 kata per adegan).')}
  S.trSig=sg;S.trBusy=false;render()}
-function storyboardPreview(sc){return '<div class="storyboard-grid">'+sc.map((x,i)=>'<div class="scene-card"><div class="scene-thumb"><span>FRAME '+String(i+1).padStart(2,'0')+' · '+mmss(i*10)+'</span></div><b>'+t('Scene','Adegan')+' '+(i+1)+' · '+mmss(i*10)+'–'+mmss((i+1)*10)+'</b><p>'+esc(x.v)+'</p></div>').join('')+'</div><p class="note">'+t('This is a layout preview from your scene descriptions, not a generated image or video.','Ini pratinjau tata letak dari deskripsi adegan, bukan gambar atau video hasil generate.')+'</p>'}
-
-const MODEL_GUIDES={
- 'Omni Flash':'Keep the prompt compact and explicit. Describe one continuous shot, the main subject action, camera movement, environment, lighting and audio in a clear sequence.',
- 'Seedance 2.5':'Use a time-ordered shot description. Specify subject, action, camera movement, motion rhythm, scene continuity and audio. Preserve exact character and product identity across clips.',
- 'Google Veo':'Describe the scene, natural physical motion, camera path, lighting, environmental sound and spoken dialogue. Avoid contradictory actions within one shot.',
- 'Kling AI':'Prioritize the subject and action, camera movement, composition, environment, motion intensity and stable visual identity. State the intended opening and ending frame clearly.',
- 'OpenAI Sora':'Describe a coherent scene and temporal progression, realistic interactions, camera behavior and continuity. Avoid overloading one shot with simultaneous actions.',
- 'Runway':'Keep each clip focused on one main motion, one camera move and a clear visual style. Use concise, actionable motion language.',
- 'Universal':'Use a model-agnostic structure: subject, action, camera, environment, lighting, timing, continuity and audio.'
-};
 function videos(){
- const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1],ratio=S.d.ratio||'9:16',style=S.d.style||'Authentic UGC',platform=S.d.platform||'TikTok',model=S.d.model||'Omni Flash',modelGuide=MODEL_GUIDES[model]||MODEL_GUIDES.Universal,voice=S.d.voice||'Natural female voice',music=S.d.music||'None',sfx=S.d.sfx||'Natural ambience',continuity=S.d.consistency||'Strict';
+ const N=nScenes(),NL=S.d.nl||'English',n=cn(),p=pn(),loc=lo(),c=concepts()[(S.concept||1)-1];
  const sc=S.scr&&S.scr.length==N?S.scr:tplScenes(N),out=[];
- for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)}) · ${model}`,
- `MODEL TARGET: ${model}. MODEL-SPECIFIC PROMPT GUIDANCE: ${modelGuide}`,
- `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. ${ratio} aspect ratio, ${style} visual style for ${platform}, filming approach (${c.film}), natural lighting, slight handheld movement. One continuous 10-second shot.`,
+ for(let k=0;k<N;k++){const x=sc[k];out.push([`VIDEO PROMPT ${k+1} OF ${N} (${mmss(k*10)}–${mmss(k*10+10)})`,
+ `REFERENCES: Use the attached Character Sheet, Product Sheet and Location Sheet as the only identity references. Same face, hair, outfit, body, product design, branding and location in every frame. 9:16 vertical, authentic smartphone UGC look (${c.film}), natural lighting, slight handheld movement, no cinematic effects. One continuous 10-second shot.`,
  `NO TEXT: There is no on-screen text of any kind: no captions, subtitles, titles, overlays, stickers, emojis, graphics, watermarks or UI. The only readable text is the real printed branding on the physical product.`,
- `AUDIO: ${n} speaks the Spoken Line below in a ${voice} style, naturally paced across the full 10 seconds. Music: ${music}. Sound effects: ${sfx}. No voice-over, no narrator, no other voices.`,
+ `AUDIO: The only voice is ${n} speaking the Spoken Line below, naturally paced across the full 10 seconds. Only natural ambient room sound is allowed. No background music, no voice-over, no narrator, no other voices, no added sound effects.`,
  `NARRATION LANGUAGE: ${NL}. The Spoken Line is spoken in ${NL}. All other instructions are in English.`,
- `CONTINUITY (${continuity}): ${k==0?'Opening video — hook in the first 3 seconds':`Continues directly from Video ${k}: ${n} holding ${p} at chest height in the ${loc}, same framing and energy.`} Keep the same face, hair, outfit, body proportions, product shape, colors, logo placement and location across every scene.`,'',
+ `CONTINUITY: ${k==0?'Opening video — hook in the first 3 seconds':`Continues directly from Video ${k}: ${n} holding ${p} at chest height in the ${loc}, same framing and energy.`}`,'',
  `(Shot: ${mmss(k*10)}–${mmss(k*10+10)})`,`- Visual: ${x.v}.`,`- Spoken Line (${NL}, ${wc(x.s)} words): "${x.s}"`,`- Delivery: ${x.d}.`,
  `END FRAME: ${n} holding ${p} at chest height, looking at the camera, ${loc} behind them.`,'',
- NEG+'on-screen text, captions, subtitles, text overlays, stickers, emojis, graphics, watermark, voice-over, narrator, extra voices, different face or outfit between scenes, altered product design or logo, extra people, distorted hands'].join('\n'))}
+ NEG+'on-screen text, captions, subtitles, text overlays, stickers, emojis, graphics, watermark, background music, voice-over, narrator, extra voices, sound effects, cinematic polish, drone or crane or dolly moves, TV-commercial look, studio lighting, different face or outfit between scenes, altered product design or logo, extra people, distorted hands'].join('\n'))}
  return out}
 
 /* ---------- SCREENS ---------- */
-const lockBox=(a,b,msg,to,lab)=>`<div class="lock">${a}</div><div class="lock">✅ ${b}</div><p class="hint" style="margin-top:10px">${msg}</p>${nav(lab,to)}`;
+const lockBox=(a,b,msg,to,lab)=>`<div class="lock">${a} 🔒</div><div class="lock">✅ ${b}</div><p class="hint" style="margin-top:10px">${msg}</p>${nav(lab,to)}`;
 const TT={
 c0:()=>`<h2>${t('Stage 1 — Character','Stage 1 — Karakter')}</h2><p class="hint">${t('Do you want to create a new character or upload your own avatar / model image?','Mau buat karakter baru atau upload gambar avatar / model sendiri?')}</p>
  ${opt(t('A — Create a new character','A — Buat karakter baru'),t('Pick the character settings, then get the image prompt.','Pilih pengaturan karakter, lalu dapatkan prompt gambarnya.'),"S.cm='A';go('cA')")}
- ${opt(t('B — Upload my avatar / model','B — Upload avatar / model saya'),t('Upload up to 10 images; the AI analyzes face, hair, outfit and more.','Upload maks 10 gambar; AI menganalisa wajah, rambut, outfit, dll.'),"S.cm='B';S.files.c=[];S.msg='';go('cB')")}`,
+ ${opt(t('B — Upload my avatar / model','B — Upload avatar / model saya'),t('Upload up to 10 images; the AI analyzes face, hair, outfit and more.','Upload maks 10 gambar; AI menganalisa wajah, rambut, outfit, dll.'),"go('cB')")}`,
 cA:()=>`<h2>${t('New Character Settings','Pengaturan Karakter Baru')}</h2><p class="hint">${t('Tap an option. Skip any group to let the creator decide ("your choice").','Tap opsi. Lewati grup mana pun agar dipilihkan kreator ("your choice").')}</p>${cForm(1)}${nav(t('Generate character image prompt →','Buat prompt gambar karakter →'),'cAo')}`,
 cAo:()=>`<h2>${t('Character Image Prompt','Prompt Gambar Karakter')}</h2><p class="hint">${t('Use this prompt to generate the character image.','Pakai prompt ini untuk generate gambar karakter.')}</p>
  ${blk('IMAGE PROMPT + NEGATIVE',`Photorealistic smartphone-quality portrait of ${cDesc()}. Believable everyday content creator, NOT a fashion model. Natural window lighting, realistic skin texture with visible pores and tiny imperfections, lived-in real home background softly blurred, slight handheld selfie framing, looking at the camera. Authentic UGC look, no studio polish.\n\n${NEG}fashion model look, airbrushed skin, plastic skin, studio retouching, cinematic lighting, distorted face, extra fingers, deformed hands, watermark, text, cartoon, blurry`)}
@@ -374,9 +290,9 @@ cS:()=>`<h2>${t('Character Sheet Prompt (16:9)','Prompt Character Sheet (16:9)')
  ${nav('✅ APPROVED — '+t('lock character','kunci karakter'),'cL')}`,
 cL:()=>lockBox('CHARACTER IDENTITY LOCKED','STAGE 1 COMPLETE — Character Sheet',t('Should I start Stage 2 (Product)?','Mulai Stage 2 (Produk)?'),'p0',t('Start Stage 2 (Product) →','Mulai Stage 2 (Produk) →')),
 p0:()=>`<h2>${t('Stage 2 — Product','Stage 2 — Produk')}</h2><p class="hint">${t('Do you want to upload your product image, or should I create a product for you?','Mau upload gambar produk sendiri, atau dibuatkan produk?')}</p>
- ${opt(t('A — Upload my product image','A — Upload gambar produk saya'),t('Upload a product photo, then fill in its details manually.','Unggah foto produk, lalu isi detailnya secara manual.'),"S.pm='A';go('pA')")}
- ${opt(t('B — Create a product for me','B — Buatkan produk untuk saya'),t('Pick the product settings.','Pilih pengaturan produk.'),"S.pm='B';go('pB')")}`,
-pA:()=>`<h2>${t('Upload Product','Upload Produk')}</h2><p class="hint">${t('Upload your product reference, then complete the product sheet manually. The product is never redesigned.','Unggah gambar referensi produk, lalu lengkapi lembar produk secara manual. Produk tidak akan didesain ulang.')}</p>${uploader('p',t('Choose product image','Pilih gambar produk'))}<h3>${t('Product sheet (adjust if needed)','Product sheet (ubah bila perlu)')}</h3>${pForm()}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
+ ${opt(t('A — Upload my product image','A — Upload gambar produk saya'),t('The AI analyzes shape, colors, materials and branding.','AI menganalisa bentuk, warna, material, branding.'),"S.pm='A';go('pA')")}
+ ${opt(t('B — Create a product for me','B — Buatkan produk untuk saya'),t('Pick the product settings.','Pilih pengaturan produk.'),"go('pB')")}`,
+pA:()=>`<h2>${t('Upload Product','Upload Produk')}</h2><p class="hint">${t('Your image has absolute priority — the product is never redesigned.','Gambar upload prioritas mutlak — produk tidak akan didesain ulang.')}</p>${uploader('p',t('Choose product image','Pilih gambar produk'))}<h3>${t('Product sheet (adjust if needed)','Product sheet (ubah bila perlu)')}</h3>${pForm()}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
 pB:()=>`<h2>${t('Product Settings','Pengaturan Produk')}</h2>${pForm()}${nav(t('Generate product image prompt →','Buat prompt gambar produk →'),'pBo')}`,
 pBo:()=>`<h2>${t('Product Image Prompt','Prompt Gambar Produk')}</h2>${blk('IMAGE PROMPT + NEGATIVE',`Photorealistic product photo of "${pn()}": ${pDesc()}. Placed on a plain light surface, soft natural light, sharp focus, accurate proportions, clean realistic details.\n\n${NEG}distorted shape, wrong logo, extra buttons, watermark, blur, text errors, people, hands`)}${nav(t('Next: Product Sheet prompt →','Lanjut: prompt Product Sheet →'),'pS')}`,
 pS:()=>`<h2>${t('Product Sheet Prompt (16:9)','Prompt Product Sheet (16:9)')}</h2>
@@ -386,45 +302,28 @@ pS:()=>`<h2>${t('Product Sheet Prompt (16:9)','Prompt Product Sheet (16:9)')}</h
 pL:()=>lockBox('PRODUCT DESIGN LOCKED','STAGE 2 COMPLETE — Product Sheet',t('Should I start Stage 3 (Location)?','Mulai Stage 3 (Lokasi)?'),'l0',t('Start Stage 3 (Location) →','Mulai Stage 3 (Lokasi) →')),
 l0:()=>{const L='ABCDE';return `<h2>${t('Stage 3 — Location','Stage 3 — Lokasi')}</h2><p class="hint">${t('Which location do you want to use?','Lokasi mana yang ingin dipakai?')} (${esc(pn())} + ${esc(cn())})</p>
  ${sug().map((l,i)=>opt(`${L[i]} — ${S.lang=='id'?l.id:l.n}`,t('Fits because it is a ','Cocok karena ')+(S.lang=='id'?l.wi:l.w)+'.',`pickLoc(${i})`)).join('')}
- ${opt(t('F — I will describe my own location','F — Saya deskripsikan lokasi sendiri'),t('Enter your own place and visual details.','Masukkan lokasi dan detail visual sendiri.'),'go(\'lC\')')}`},
-lC:()=>`<h2>${t('Custom Location','Lokasi Kustom')}</h2><div class="fl"><span>${t('Location name','Nama lokasi')}</span><input type="text" data-s="lcn" value="${esc(S.lcn||'')}" placeholder="${t('e.g. Small modern kitchen','mis. Dapur modern kecil')}"></div><div class="fl"><span>${t('Layout, objects and visual details','Tata letak, objek, dan detail visual')}</span><input type="text" data-s="lcd" value="${esc(S.lcd||'')}" placeholder="${t('Describe the place','Jelaskan tempatnya')}"></div><button class="btn" onclick="S.loc={n:S.lcn||'Custom location',d:S.lcd||'lived-in everyday space',p:'natural realistic tones',l:'natural daylight',t:'daytime'};go('lS')">${t('Use this location →','Gunakan lokasi ini →')}</button>`,
+ ${opt(t('F — I will describe my own location','F — Saya deskripsikan lokasi sendiri'),t('Enter your own location name and details.','Isi nama lokasi dan detailnya sendiri.'),'pickLoc(-1)')}`},
 lS:()=>{const l=S.loc;return `<h2>${t('Location Sheet','Location Sheet')}</h2>${blk('LOCATION SHEET',`Location: ${l.n}\nLayout & objects: ${l.d}\nColor palette: ${l.p}\nLighting: ${l.l}\nTime of day: ${l.t}\nMood: lived-in, realistic, everyday — NOT a staged studio`)}
  ${blk('REFERENCE PROMPT + NEGATIVE',`16:9 landscape location reference sheet showing THREE images of the SAME place, side by side: Image 1 (left) wide view; Image 2 (center) medium angle; Image 3 (right) detail corner. Location name "${l.n.toUpperCase()}" in clean bold text at the top center. A real, lived-in ${l.n.toLowerCase()}: ${l.d}. Color palette: ${l.p}. Lighting: ${l.l}, ${l.t}. Identical architecture, layout, objects and colors in all three images. Authentic everyday feel, slight natural clutter. No people, no product.\n\n${NEG}people, product, staged studio, cinematic lighting, different layout between images, watermark, text other than the name, blur, distorted perspective`)}${nav('✅ '+t('Lock location','Kunci lokasi'),'lL')}`},
 lL:()=>lockBox('LOCATION LOCKED','STAGE 3 COMPLETE — Location',t('Should I generate the 10 UGC ad concepts?','Generate 10 konsep iklan UGC?'),'k0',t('Yes, go to Stage 4 (Concepts) →','Ya, lanjut Stage 4 (Konsep) →')),
 k0:()=>{qFix();return `<h2>${t('Stage 4 — 10 UGC Ad Concepts','Stage 4 — 10 Konsep Iklan UGC')}</h2><p class="hint">${t('The options below match your product category','Opsi di bawah menyesuaikan kategori produkmu')}: <b>${esc(cat())}</b>. ${t('The 10 concepts are written for your exact product.','10 konsep ditulis khusus untuk produkmu.')}</p>
  ${chips('q','prob',t('Customer problem','Masalah customer'),probL())}${chips('q','benefit',t('Main benefit / honest reaction','Manfaat utama / reaksi jujur'),benL())}${chips('q','cta',t('Soft call to action','Soft CTA'),O.cta)}${nav(t('Yes, generate 10 concepts →','Ya, buat 10 konsep →'),'k1')}`},
 k1:()=>{if(S.csSig!==pSig()){if(!S.csBusy)startConcepts();return `<h2>Stage 4</h2><p class="hint">⏳ ${t('Writing 10 concepts for','Menulis 10 konsep untuk')} ${esc(pn())}…</p>`}
- return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2>${S.csErr?`<p class="note">⚠️ ${t('AI concept generation did not complete. Showing built-in editable concepts instead. Error: ','Pembuatan konsep AI belum berhasil. Ditampilkan konsep bawaan yang tetap bisa diedit. Pesan: ')}${esc(S.csErr)}</p>`:''}<p class="hint">${t('Choose one of the 10 concepts to create.','Pilih salah satu dari 10 konsep untuk dibuat.')}</p>${concepts().map(c=>c.i<=FREE.concepts?opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`):opt(`${c.i}. 🔒 PRO — ${esc(c.title)}`,`<span>${t('Premium concept. Upgrade to unlock.','Konsep premium. Upgrade untuk membuka.')}</span>`,'showPro()')).join('')}${nav('','k0')}`},
-d0:()=>`<h2>${t('Stage 5 — Video Settings','Stage 5 — Pengaturan Video')}</h2><div class="lock">CONCEPT ${S.concept} SELECTED</div><p class="hint" style="margin-top:8px">${t('Set duration, platform, visual style and audio before generating.','Atur durasi, platform, gaya visual, dan audio sebelum membuat prompt.')}</p>
+ return `<h2>${t('10 UGC Concepts','10 Konsep UGC')}</h2><p class="hint">${t('Which concept do you want to create? All 10 concepts are available.','Konsep mana yang ingin dibuat? Semua 10 konsep tersedia.')}</p>${concepts().map(c=>opt(`${c.i}. ${esc(c.title)}`,`<b style="display:inline;font-size:13px">Hook:</b> “${esc(c.hook)}”<br>${t('Product in use','Produk dipakai')}: ${esc(c.use)}<br>${t('Payoff','Payoff')}: ${esc(c.payoff)}<br>CTA: ${esc(c.cta)}<br>${t('Filming style','Gaya rekam')}: ${esc(c.film)}`,`S.concept=${c.i};go('d0')`)).join('')}${nav('','k0')}`},
+d0:()=>`<h2>${t('Stage 5 — Duration & Narration','Stage 5 — Durasi & Narasi')}</h2><div class="lock">CONCEPT ${S.concept} LOCKED 🔒</div><p class="hint" style="margin-top:8px">${t('What video duration do you want (seconds)?','Durasi video berapa detik?')}</p>
  ${durField()}${nlField()}
- ${settingsField('platform',t('Target platform','Platform tujuan'),[['TikTok','TikTok'],['Instagram Reels','Instagram Reels'],['YouTube Shorts','YouTube Shorts'],['Facebook Reels','Facebook Reels'],['General social video','Video sosial umum']])}
- ${settingsField('model',t('Target AI video model','Model AI video tujuan'),[['Omni Flash','Omni Flash'],['Seedance 2.5','Seedance 2.5'],['Google Veo','Google Veo'],['Kling AI','Kling AI'],['OpenAI Sora','OpenAI Sora'],['Runway','Runway'],['Universal','Universal / lainnya']])}
- ${settingsField('ratio',t('Video aspect ratio','Rasio video'),[['9:16','9:16 — Vertikal'],['16:9','16:9 — Horizontal'],['1:1','1:1 — Persegi']])}
- ${settingsField('style',t('Visual style','Gaya visual'),[['Authentic UGC','UGC autentik'],['Cinematic','Cinematic'],['Photorealistic commercial','Iklan realistis'],['Lifestyle vlog','Lifestyle vlog'],['Product demonstration','Demo produk']])}
- ${settingsField('consistency',t('Identity consistency','Konsistensi identitas'),[['Strict','Ketat'],['High','Tinggi'],['Balanced','Seimbang']])}
- ${settingsField('voice',t('Voice character','Karakter suara'),[['Natural female voice','Suara wanita natural'],['Natural male voice','Suara pria natural'],['Warm mature voice','Suara dewasa hangat'],['Energetic youthful voice','Suara muda energik'],['Calm professional voice','Suara profesional tenang']])}
- ${settingsField('music',t('Background music','Musik latar'),[['None','Tanpa musik'],['Soft upbeat instrumental','Instrumental ceria lembut'],['Warm lifestyle instrumental','Instrumental lifestyle hangat'],['Energetic pop instrumental','Instrumental pop energik']])}
- ${settingsField('sfx',t('Sound effects','Efek suara'),[['Natural ambience','Suara lingkungan natural'],['Product handling sounds','Suara saat produk digunakan'],['Light subtle effects','Efek ringan'],['None','Tanpa efek suara']])}
- <p class="note">${t('These choices are written into prompts only. This GitHub Pages version does not create video, voice, music or sound files. AI image/script analysis also requires a supported connected AI runtime.','Pilihan ini hanya ditulis ke prompt. Versi GitHub Pages ini belum menghasilkan video, suara, musik, atau file efek suara. Analisis AI gambar/skrip juga memerlukan runtime AI yang terhubung.')}</p>${projectTools()}${nav(t('Generate video prompts →','Buat video prompt →'),'v0',"S.d.dur=Math.min(60,Math.max(10,+S.d.dur||20));S.d.nl=S.d.nl||'English';")}`,
+ <p class="note">${t('Prompts stay in English; only the narration uses the language you pick, and the video model is told which language to speak.','Prompt tetap bahasa Inggris; hanya narasi yang memakai bahasa pilihanmu, dan model video diberi tahu bahasa yang diucapkan.')}</p>${nav(t('Generate video prompts →','Buat video prompt →'),'v0',"")}`,
 v0:()=>{const NL=S.d.nl||'English';
  if(S.trSig!==sig()){if(!S.trBusy)startScript();return `<h2>Stage 6</h2><p class="hint">⏳ ${t('Writing scene scripts…','Menulis skrip adegan…')}</p>`}
- const r=videos(),sc=S.scr&&S.scr.length===r.length?S.scr:tplScenes(r.length);
- return `<h2>${t('Stage 6 — Storyboard & Video Prompts','Stage 6 — Storyboard & Video Prompt')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${esc(S.d.ratio||'9:16')} · ${esc(S.d.platform||'TikTok')} · ${esc(S.d.model||'Omni Flash')} · ${t('Narration','Narasi')}: ${esc(NL)}.</p>
- ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}<div class="row"><button class="btn s" onclick="downloadAllPrompts()">${t('Download prompts TXT','Unduh prompt TXT')}</button><button class="btn s" onclick="exportProject()">${t('Export project JSON','Ekspor proyek JSON')}</button><button class="btn s" onclick="saveProject()">${t('Save project','Simpan proyek')}</button></div>
- <h3>${t('Storyboard preview','Pratinjau storyboard')}</h3>${storyboardPreview(sc)}<h3>${t('Edit scene scripts','Edit skrip adegan')}</h3>
- ${sc.map((x,i)=>`<div class="blk" style="border:1px solid var(--bd);border-radius:14px;padding:12px"><b>${t('Scene','Adegan')} ${i+1} · ${mmss(i*10)}–${mmss((i+1)*10)}</b>
- <div class="fl"><span>Visual</span><textarea data-scene="${i}" data-field="v" onchange="render(true)" rows="2" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.v)}</textarea></div>
- <div class="fl"><span>Spoken line (${esc(NL)})</span><textarea data-scene="${i}" data-field="s" onchange="render(true)" rows="3" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.s)}</textarea></div>
- <div class="fl"><span>Delivery</span><textarea data-scene="${i}" data-field="d" onchange="render(true)" rows="2" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--code);color:var(--tx);font:inherit">${esc(x.d)}</textarea></div></div>`).join('')}
- <p class="note">${t('Edit any scene above. Changes are reflected in the prompts below.','Ubah adegan di atas. Perubahan akan tercermin pada prompt di bawah.')}</p>
- ${blk(t('Copy all prompts','Salin semua prompt'),r.join('\n\n────────\n\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
- <div class="lock">✅ ALL STAGES COMPLETE</div>${upsell()}<pre style="margin-top:8px">${t('1) Generate Video 1 with the three reference sheets attached.\n2) Use the last frame of each video as the start frame of the next.\n3) Join all videos in order in a video editor.','1) Generate Video 1 dengan 3 sheet referensi.\n2) Pakai last frame tiap video sebagai start frame berikutnya.\n3) Gabungkan semua video secara berurutan di editor video.')}</pre>${nav('','k1')}`}
+ const r=videos();return `<h2>${t('Stage 6 — Video Prompts','Stage 6 — Video Prompt')}</h2><p class="hint">${t('Concept','Konsep')} #${S.concept} · ${S.d.dur}s · ${r.length} ${t('scenes × 10 seconds','adegan × 10 detik')} · ${t('Narration','Narasi')}: ${esc(NL)}. ${t('Each scene has 18–25 spoken words, no on-screen text, and no sound except the creator and natural ambience.','Tiap adegan 18–25 kata, tanpa teks di layar, dan tanpa suara selain kreator dan suara natural.')}</p>
+ ${S.trErr?`<p class="note">⚠️ ${esc(S.trErr)}</p>`:''}${blk(t('Copy all prompts','Salin semua prompt'),r.join('\n\n────────\n\n'))}${r.map((x,i)=>blk(`VIDEO PROMPT ${i+1} / ${r.length}`,x)).join('')}
+ <div class="lock">✅ PRO GENERATION COMPLETE</div><pre style="margin-top:8px">${t('1) Generate Video 1 in Omni Flash with the three sheets attached.\n2) Use the last frame of each video as the start frame of the next.\n3) Join all videos in order in a video editor.','1) Generate Video 1 di Omni Flash dengan 3 sheet terlampir.\n2) Pakai last frame tiap video sebagai start frame video berikutnya.\n3) Gabungkan semua video secara berurutan di video editor.')}</pre>${nav('','k1')}`}
 };
 const STG=()=>[t('Character','Karakter'),t('Product','Produk'),t('Location','Lokasi'),t('Concept','Konsep'),t('Duration','Durasi'),t('Video','Video')];
 function render(keep){
- C.length=0;const g=stageOf(S.st),y=scrollY;queueAutoSave();
- document.getElementById('tag').textContent=t('UGC ad prompts for multiple AI video models · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
- document.getElementById('bn').innerHTML=`<span>✓ <b>${t('PRO UNLOCKED','PRO TERBUKA')}</b> — ${t('10 concepts, up to 60 seconds, all narration languages and full customization.','10 konsep, durasi hingga 60 detik, semua bahasa narasi, dan kustomisasi lengkap.')}</span>`;
+ C.length=0;const g=stageOf(S.st),y=scrollY;
+ document.getElementById('tag').textContent=t('UGC ad prompts · PRO · 9:16','Prompt iklan UGC untuk Omni Flash · 9:16');
+ document.getElementById('bn').innerHTML=`<span>⭐ <b>PRO UNLOCKED</b> — ${t('All 10 concepts, up to 6 scenes (60s), full custom fields and narration language choices.','Semua 10 konsep, hingga 6 adegan (60 detik), kolom custom dan pilihan bahasa narasi terbuka.')}</span>`;
  document.getElementById('lang').innerHTML=['en','id'].map(l=>`<button class="${S.lang==l?'on':''}" onclick="S.lang='${l}';render(true)">${l.toUpperCase()}</button>`).join('');
  document.getElementById('pg').innerHTML=STG().map((n,i)=>`<div class="${i+1==g?'on':i+1<g?'dn':''}"><b></b>${i+1<g?'✓ ':''}${n}</div>`).join('');
  document.getElementById('panel').innerHTML=TT[S.st]();
